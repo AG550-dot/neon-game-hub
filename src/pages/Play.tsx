@@ -3,52 +3,67 @@ import NeonHeader from "@/components/NeonHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES, getGame } from "@/lib/games";
+import { getNativeGame } from "@/games/registry";
 import {
   ArrowLeft,
   ChevronRight,
   ExternalLink,
+  Globe,
   Keyboard,
   Maximize2,
   Monitor,
   Zap,
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
-import { Link, useParams, useSearchParams } from "react-router";
+import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react";
+import { Link, useParams } from "react-router";
+
+type Mode = "builtin" | "hosted";
 
 export default function Play() {
   const { slug } = useParams<{ slug: string }>();
   const game = getGame(slug);
+  const Native = getNativeGame(slug);
   const shellRef = useRef<HTMLDivElement>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [loaded, setLoaded] = useState(false);
-  const [loadKey, setLoadKey] = useState(0);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const [mode, setMode] = useState<Mode>("builtin");
+  const [size, setSize] = useState({ w: 960, h: 540 });
   const [fsActive, setFsActive] = useState(false);
+  const [hostedLoaded, setHostedLoaded] = useState(false);
+  const [hostedKey, setHostedKey] = useState(0);
 
-  // Reset load state when switching games
+  // Reset embed state when switching games / modes
   useEffect(() => {
-    setLoaded(false);
-    setLoadKey((k) => k + 1);
+    setHostedLoaded(false);
+    setHostedKey((k) => k + 1);
     if (game) {
       document.title = `${game.title} — Unblocked & Free | NeonPlay Arcade`;
     }
     return () => {
       document.title = "NeonPlay Arcade — Unblocked Games for School";
     };
-  }, [game?.slug]);
+  }, [game?.slug, mode]);
 
-  // Prefill the library search when jumping over via the header CTA
-  useEffect(() => {
-    const q = searchParams.get("q");
-    if (q) setSearchParams({});
-  }, [searchParams, setSearchParams]);
-
-
-  // Track fullscreen state for the letterbox overlay
+  // Track fullscreen for the letterbox overlay
   useEffect(() => {
     const onChange = () => setFsActive(!!document.fullscreenElement);
     document.addEventListener("fullscreenchange", onChange);
     return () => document.removeEventListener("fullscreenchange", onChange);
   }, []);
+
+  // Observe the stage so native canvas games always fill it exactly
+  const measure = useCallback(() => {
+    const el = stageRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    setSize({ w: Math.max(320, Math.round(r.width)), h: Math.max(240, Math.round(r.height)) });
+  }, []);
+
+  useEffect(() => {
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (stageRef.current) ro.observe(stageRef.current);
+    return () => ro.disconnect();
+  }, [measure]);
 
   if (!game) {
     return (
@@ -97,7 +112,7 @@ export default function Play() {
         {/* Title row */}
         <div className="mb-5 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <div className="mb-1.5 flex items-center gap-2">
+            <div className="mb-1.5 flex flex-wrap items-center gap-2">
               <Badge
                 variant="outline"
                 className="neon-chip border-none text-[10px] font-semibold"
@@ -108,7 +123,7 @@ export default function Play() {
                 variant="outline"
                 className="neon-chip border-none text-[10px] font-semibold"
               >
-                Unblocked
+                Built-in · works everywhere
               </Badge>
             </div>
             <h1 className="font-display text-3xl font-extrabold tracking-tight sm:text-4xl">
@@ -116,15 +131,7 @@ export default function Play() {
               <span className="text-foreground/70">Unblocked</span>
             </h1>
           </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              className="btn-ghost-neon gap-2"
-              onClick={() => setLoadKey((k) => k + 1)}
-            >
-              <Zap className="size-4 text-[#ffe14d]" />
-              Restart
-            </Button>
+          <div className="flex flex-wrap items-center gap-2">
             <Button
               variant="ghost"
               className="btn-ghost-neon gap-2"
@@ -133,44 +140,100 @@ export default function Play() {
               <Maximize2 className="size-4 text-[#00e5ff]" />
               Fullscreen
             </Button>
+            <a
+              href={game.fallbackUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost-neon inline-flex h-10 items-center gap-2 rounded-md px-4 text-sm font-medium"
+            >
+              <ExternalLink className="size-4 text-[#3dff8b]" />
+              Open in new tab
+            </a>
           </div>
         </div>
 
-        {/* Game shell */}
-        <div
-          ref={shellRef}
-          className="rainbow-ring relative rounded-2xl"
-        >
+        {/* Game stage */}
+        <div ref={shellRef} className="rainbow-ring relative rounded-2xl">
           <div className="relative w-full overflow-hidden rounded-2xl bg-[#0b0520]">
-            {/* Letterbox to 16:9 in fullscreen; tall aspect otherwise */}
             <div
               className={`relative w-full ${
-                fsActive
-                  ? "flex h-screen items-center"
-                  : "aspect-[16/10] sm:aspect-video"
+                fsActive ? "h-screen" : "aspect-[16/10] sm:aspect-video"
               }`}
             >
-            <iframe
-              key={loadKey}
-              src={game.src}
-              title={`${game.title} — play unblocked`}
-              className="absolute inset-0 size-full border-0"
-              allow="fullscreen; autoplay; gamepad; pointer-lock"
-              sandbox={game.sandbox}
-              loading="eager"
-              onLoad={() => setLoaded(true)}
-            />
-            {/* Loading overlay */}
-            {!loaded && (
-              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#0b0520]">
-                <div className="size-12 animate-spin rounded-full border-2 border-[#b026ff33] border-t-[#00e5ff]" />
-                <p className="text-sm text-muted-foreground">
-                  Booting {game.title}…
-                </p>
-              </div>
-            )}
+              {mode === "builtin" ? (
+                <Suspense
+                  fallback={
+                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#0b0520]">
+                      <div className="size-12 animate-spin rounded-full border-2 border-[#b026ff33] border-t-[#00e5ff]" />
+                      <p className="text-sm text-muted-foreground">
+                        Loading {game.title}…
+                      </p>
+                    </div>
+                  }
+                >
+                  {Native ? (
+                    <div ref={stageRef} className="absolute inset-0">
+                      <Native width={size.w} height={size.h} />
+                    </div>
+                  ) : (
+                    <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
+                      Built-in version coming soon
+                    </div>
+                  )}
+                </Suspense>
+              ) : (
+                <>
+                  <iframe
+                    key={hostedKey}
+                    src={game.src}
+                    title={`${game.title} — play unblocked (hosted)`}
+                    className="absolute inset-0 size-full border-0"
+                    allow="fullscreen; autoplay; gamepad; pointer-lock"
+                    sandbox={game.sandbox}
+                    loading="eager"
+                    onLoad={() => setHostedLoaded(true)}
+                  />
+                  {!hostedLoaded && (
+                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-[#0b0520]">
+                      <div className="size-12 animate-spin rounded-full border-2 border-[#b026ff33] border-t-[#00e5ff]" />
+                      <p className="text-sm text-muted-foreground">
+                        Connecting to {game.title}…
+                      </p>
+                    </div>
+                  )}
+                </>
+              )}
             </div>
           </div>
+        </div>
+
+        {/* Mode toggle */}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
+          <button
+            onClick={() => setMode("builtin")}
+            className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all ${
+              mode === "builtin"
+                ? "btn-neon"
+                : "border border-[#b026ff4d] text-muted-foreground hover:border-[#00e5ff80] hover:text-foreground"
+            }`}
+          >
+            ⚡ Built-in game
+          </button>
+          <button
+            onClick={() => setMode("hosted")}
+            className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all ${
+              mode === "hosted"
+                ? "btn-neon"
+                : "border border-[#b026ff4d] text-muted-foreground hover:border-[#00e5ff80] hover:text-foreground"
+            }`}
+          >
+            <Globe className="mr-1 inline size-3.5" />
+            Hosted version
+          </button>
+          <span className="ml-2 hidden text-xs text-muted-foreground sm:inline">
+            Built-in runs offline-fast inside this site — hosted loads the
+            original from the web.
+          </span>
         </div>
 
         {/* Info strip */}
@@ -197,25 +260,18 @@ export default function Play() {
               </p>
             </div>
           </div>
-          <a
-            href={game.fallbackUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="neon-card group flex items-start gap-3 rounded-xl p-4"
-          >
+          <div className="neon-card flex items-start gap-3 rounded-xl p-4">
             <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-[#3dff8b55] bg-[#3dff8b1a]">
-              <ExternalLink className="size-4 text-[#3dff8b]" />
+              <Zap className="size-4 text-[#3dff8b]" />
             </span>
             <div>
-              <p className="text-sm font-semibold group-hover:text-[#3dff8b]">
-                Not loading?
-              </p>
+              <p className="text-sm font-semibold">Never blocked</p>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                Open {game.title} in a new tab — works even behind strict
-                school filters.
+                The built-in version is served by this site itself — no
+                third-party host to get filtered.
               </p>
             </div>
-          </a>
+          </div>
         </div>
 
         {/* About section — SEO copy */}
@@ -228,9 +284,9 @@ export default function Play() {
           </p>
           <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
             Looking for {game.title.toLowerCase()} unblocked at school? NeonPlay
-            Arcade loads it instantly in your browser — free, with no downloads
-            and no sign-up required. Works great on Chromebooks and school
-            laptops.
+            Arcade includes it built-in — playable instantly in your browser,
+            free, with no downloads and no sign-up required. Works great on
+            Chromebooks and school laptops.
           </p>
         </section>
 

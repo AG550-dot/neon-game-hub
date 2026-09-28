@@ -552,8 +552,8 @@ const FEATURES = [
   {
     icon: Lock,
     tone: "border-[#b026ff55] bg-[#b026ff1a] text-[#c04bff]",
-    title: "Plays through filters",
-    body: "Games load over plain web traffic, so they typically stay available on school networks where app stores and downloads are blocked.",
+    title: "Built-in, unblockable",
+    body: "Every game is coded directly into the site — no third-party game hosts for a school filter to single out. If the page loads, the games load.",
   },
   {
     icon: MonitorSmartphone,
@@ -594,7 +594,7 @@ const STATS = [
 const FAQS = [
   {
     q: "Are these games really unblocked at school?",
-    a: "Yes. NeonPlay Arcade hosts browser-based games that load over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. No installs, no VPN, no sign-up required to play.",
+    a: "Yes. Every game on NeonPlay Arcade is built directly into the site itself, so it loads over standard web traffic with nothing extra to block — no third-party game hosts, no installs, no VPN, no sign-up required to play.",
   },
   {
     q: "Do I need to download or install anything?",

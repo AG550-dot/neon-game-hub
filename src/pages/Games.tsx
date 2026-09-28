@@ -231,7 +231,7 @@ export default function Games() {
 const FAQS = [
   {
     q: "Are these games really unblocked at school?",
-    a: "Yes. NeonPlay Arcade hosts browser-based games that load over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. No installs, no VPN, no sign-up required to play.",
+    a: "Yes. Every game on NeonPlay Arcade is built directly into the site itself, so it loads over standard web traffic with nothing extra to block — no third-party game hosts, no installs, no VPN, no sign-up required to play.",
   },
   {
     q: "Do I need to download or install anything?",
