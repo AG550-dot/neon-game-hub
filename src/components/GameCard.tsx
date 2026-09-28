@@ -1,0 +1,91 @@
+import { Badge } from "@/components/ui/badge";
+import { GAMES, type NeonGame } from "@/lib/games";
+import { motion } from "framer-motion";
+import { Play, Users } from "lucide-react";
+import { Link } from "react-router";
+
+function GameCardInner({ game }: { game: NeonGame }) {
+  return (
+    <motion.div
+      whileHover={{ y: -6 }}
+      transition={{ type: "spring", stiffness: 300, damping: 22 }}
+      className="h-full"
+    >
+      <Link
+        to={`/play/${game.slug}`}
+        className="neon-card group relative flex h-full flex-col overflow-hidden rounded-2xl p-5"
+      >
+        {/* Art block */}
+        <div
+          className={`relative mb-4 flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br ${game.artGradient} p-[2px]`}
+        >
+          <div className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-[10px] bg-[#0b0520]/90">
+            <span className="font-display text-5xl font-extrabold text-transparent opacity-90 transition-transform duration-300 group-hover:scale-110">
+              <span className="bg-clip-text text-transparent">
+                <span
+                  className={`bg-gradient-to-r ${game.artGradient} bg-clip-text`}
+                >
+                  {game.title.charAt(0)}
+                </span>
+              </span>
+            </span>
+            <span className="px-3 text-center text-xs font-semibold tracking-wide text-foreground/80">
+              {game.tagline}
+            </span>
+          </div>
+          {/* Hover play badge */}
+          <div className="absolute inset-0 flex items-center justify-center bg-[#070214]/70 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
+            <span className="flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-bold text-background shadow-[0_0_24px_rgba(0,229,255,0.45)]">
+              <Play className="size-4 fill-current" />
+              Play now
+            </span>
+          </div>
+          {/* Corner glow */}
+          <div className="pointer-events-none absolute -right-6 -top-6 size-24 rounded-full bg-white/10 blur-2xl" />
+        </div>
+
+        <div className="flex flex-1 flex-col">
+          <div className="mb-1 flex items-center justify-between gap-2">
+            <h3 className="font-display text-lg font-bold text-foreground">
+              {game.title}
+            </h3>
+            <Badge
+              variant="outline"
+              className="neon-chip shrink-0 border-none px-2 py-0.5 text-[10px] font-semibold"
+            >
+              {game.genre.split(" · ")[0]}
+            </Badge>
+          </div>
+          <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+            {game.description}
+          </p>
+          <div className="mt-auto flex items-center justify-between border-t border-[#b026ff26] pt-3 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1.5">
+              <Users className="size-3.5" />
+              {game.players}
+            </span>
+            <span className={`font-semibold ${game.accentText}`}>
+              Play free →
+            </span>
+          </div>
+        </div>
+      </Link>
+    </motion.div>
+  );
+}
+
+export function GameCard({ game }: { game: NeonGame }) {
+  return <GameCardInner game={game} />;
+}
+
+export function GameCardGrid() {
+  return (
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {GAMES.map((game) => (
+        <GameCardInner key={game.slug} game={game} />
+      ))}
+    </div>
+  );
+}
+
+export default GameCard;
