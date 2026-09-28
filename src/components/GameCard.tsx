@@ -20,8 +20,8 @@ function GameCardInner({ game }: { game: NeonGame }) {
           className={`relative mb-4 flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br ${game.artGradient} p-[2px]`}
         >
           <div className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-[10px] bg-[#0b0520]/90 p-3">
-            <span className="flex h-20 items-center justify-center transition-transform duration-300 group-hover:scale-110">
-              <GameLogo game={game} className="max-h-20 max-w-32" letterClassName="text-5xl" />
+            <span className="flex h-24 items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <GameLogo game={game} className="max-h-24 max-w-44" letterClassName="text-6xl" />
             </span>
             <span className="px-3 text-center text-xs font-semibold tracking-wide text-foreground/80">
               {game.tagline}

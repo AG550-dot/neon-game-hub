@@ -36,7 +36,7 @@ export default function GameLogo({
       loading="lazy"
       draggable={false}
       onError={() => setFailed(true)}
-      className={`${className} rounded-lg object-contain select-none`}
+      className={`${className} rounded-lg object-contain select-none [image-rendering:pixelated]`}
     />
   );
 }

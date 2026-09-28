@@ -489,8 +489,8 @@ function FeaturedGameRow({
         className={`relative flex min-h-44 items-center justify-center overflow-hidden bg-gradient-to-br ${game.artGradient} p-[2px] sm:w-2/5`}
       >
         <div className="flex h-full w-full items-center justify-center bg-[#0b0520]/85 p-4">
-          <span className="flex h-24 items-center justify-center transition-transform duration-500 group-hover:scale-110">
-            <GameLogo game={game} className="max-h-24 max-w-40" letterClassName="text-7xl" />
+          <span className="flex h-32 items-center justify-center transition-transform duration-500 group-hover:scale-110">
+            <GameLogo game={game} className="max-h-32 max-w-56" letterClassName="text-8xl" />
           </span>
         </div>
         <span className="absolute left-3 top-3 rounded-full bg-[#070214]/80 px-2.5 py-1 text-[10px] font-bold uppercase tracking-widest text-foreground/80">
