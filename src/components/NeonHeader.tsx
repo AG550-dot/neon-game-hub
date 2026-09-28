@@ -1,3 +1,4 @@
+import GameLogo from "@/components/GameLogo";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
 import { GAMES, getGenreStats, searchGames } from "@/lib/games";
@@ -120,8 +121,8 @@ export default function NeonHeader() {
                         <span
                           className={`flex size-8 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${g.artGradient} p-[1.5px]`}
                         >
-                          <span className="flex size-full items-center justify-center rounded-[6px] bg-[#0b0520] font-display text-xs font-bold">
-                            {g.title.charAt(0)}
+                          <span className="flex size-full items-center justify-center overflow-hidden rounded-[6px] bg-[#0b0520]">
+                            <GameLogo game={g} className="max-h-5 max-w-5" letterClassName="text-xs" />
                           </span>
                         </span>
                         <span className="min-w-0 flex-1">
@@ -286,8 +287,8 @@ export default function NeonHeader() {
                 <span
                   className={`flex size-7 shrink-0 items-center justify-center rounded-md bg-gradient-to-br ${g.artGradient} p-[1.5px]`}
                 >
-                  <span className="flex size-full items-center justify-center rounded-[5px] bg-[#0b0520] font-display text-[10px] font-bold">
-                    {g.title.charAt(0)}
+                  <span className="flex size-full items-center justify-center overflow-hidden rounded-[5px] bg-[#0b0520]">
+                    <GameLogo game={g} className="max-h-4 max-w-4" letterClassName="text-[10px]" />
                   </span>
                 </span>
                 {g.title}

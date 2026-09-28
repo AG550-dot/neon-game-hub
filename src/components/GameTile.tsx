@@ -1,4 +1,5 @@
 import { type NeonGame } from "@/lib/games";
+import GameLogo from "@/components/GameLogo";
 import { Play } from "lucide-react";
 import { Link } from "react-router";
 
@@ -12,12 +13,12 @@ export default function GameTile({ game }: { game: NeonGame }) {
       <div
         className={`relative flex h-24 items-center justify-center rounded-xl bg-gradient-to-br ${game.artGradient}`}
       >
-        <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-[#0b0520]/85">
-          <span
-            className={`font-display text-4xl font-extrabold bg-gradient-to-r ${game.artGradient} bg-clip-text text-transparent`}
-          >
-            {game.title.charAt(0)}
-          </span>
+        <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-[#0b0520]/85 p-2">
+          <GameLogo
+            game={game}
+            className="max-h-12 max-w-20"
+            letterClassName="text-4xl"
+          />
         </div>
         <span className="absolute right-2 top-2 flex size-7 items-center justify-center rounded-full bg-[#070214]/80 opacity-0 transition-opacity group-hover:opacity-100">
           <Play className="size-3.5 fill-current text-[#00e5ff]" />

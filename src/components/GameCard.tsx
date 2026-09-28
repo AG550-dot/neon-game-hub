@@ -1,3 +1,4 @@
+import GameLogo from "@/components/GameLogo";
 import { GAMES, type NeonGame } from "@/lib/games";
 import { motion } from "framer-motion";
 import { Play, Users } from "lucide-react";
@@ -18,15 +19,9 @@ function GameCardInner({ game }: { game: NeonGame }) {
         <div
           className={`relative mb-4 flex h-40 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br ${game.artGradient} p-[2px]`}
         >
-          <div className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-[10px] bg-[#0b0520]/90">
-            <span className="font-display text-5xl font-extrabold text-transparent opacity-90 transition-transform duration-300 group-hover:scale-110">
-              <span className="bg-clip-text text-transparent">
-                <span
-                  className={`bg-gradient-to-r ${game.artGradient} bg-clip-text`}
-                >
-                  {game.title.charAt(0)}
-                </span>
-              </span>
+          <div className="flex h-full w-full flex-col items-center justify-center gap-3 rounded-[10px] bg-[#0b0520]/90 p-3">
+            <span className="flex h-20 items-center justify-center transition-transform duration-300 group-hover:scale-110">
+              <GameLogo game={game} className="max-h-20 max-w-32" letterClassName="text-5xl" />
             </span>
             <span className="px-3 text-center text-xs font-semibold tracking-wide text-foreground/80">
               {game.tagline}
