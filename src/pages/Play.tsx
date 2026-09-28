@@ -25,11 +25,16 @@ export default function Play() {
   const Native = getNativeGame(slug);
   const shellRef = useRef<HTMLDivElement>(null);
   const stageRef = useRef<HTMLDivElement>(null);
-  const [mode, setMode] = useState<Mode>("builtin");
+  const [mode, setMode] = useState<Mode>(Native ? "builtin" : "hosted");
   const [size, setSize] = useState({ w: 960, h: 540 });
   const [fsActive, setFsActive] = useState(false);
   const [hostedLoaded, setHostedLoaded] = useState(false);
   const [hostedKey, setHostedKey] = useState(0);
+
+  // When switching games, pick the best default mode for that game
+  useEffect(() => {
+    setMode(getNativeGame(game?.slug) ? "builtin" : "hosted");
+  }, [game?.slug]);
 
   // Reset embed state when switching games / modes
   useEffect(() => {
@@ -209,16 +214,18 @@ export default function Play() {
 
         {/* Mode toggle */}
         <div className="mt-4 flex flex-wrap items-center justify-center gap-2 sm:justify-start">
-          <button
-            onClick={() => setMode("builtin")}
-            className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all ${
-              mode === "builtin"
-                ? "btn-neon"
-                : "border border-[#b026ff4d] text-muted-foreground hover:border-[#00e5ff80] hover:text-foreground"
-            }`}
-          >
-            ⚡ Built-in game
-          </button>
+          {Native && (
+            <button
+              onClick={() => setMode("builtin")}
+              className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all ${
+                mode === "builtin"
+                  ? "btn-neon"
+                  : "border border-[#b026ff4d] text-muted-foreground hover:border-[#00e5ff80] hover:text-foreground"
+              }`}
+            >
+              ⚡ Built-in game
+            </button>
+          )}
           <button
             onClick={() => setMode("hosted")}
             className={`rounded-full px-4 py-1.5 text-xs font-bold transition-all ${

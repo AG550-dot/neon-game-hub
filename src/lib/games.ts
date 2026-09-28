@@ -98,6 +98,38 @@ export const GAMES: NeonGame[] = [
     controls: "Mouse — click & buy",
     players: "1 player",
   },
+  {
+    slug: "gladihoppers",
+    title: "Gladihoppers",
+    tagline: "Hop into the arena",
+    description:
+      "A hilarious 2D physics gladiator brawler. Charge into the arena, flail your sword with ragdoll precision, and stomp your rival before they stomp you. Practice solo or duel a friend on the same keyboard.",
+    src: "https://gladihoppers.io/frame/",
+    fallbackUrl: "https://gladihoppersgames.github.io/",
+    sandbox: SANDBOX,
+    artGradient: "from-[#ff7a1a] via-[#ff2ea6] to-[#b026ff]",
+    accentText: "text-[#ff7a1a]",
+    accentChip: "bg-[#ff7a1a]",
+    genre: "Fighting · Physics",
+    controls: "Arrows / WASD — move, jump & fight",
+    players: "1–2 players",
+  },
+  {
+    slug: "eaglercraft",
+    title: "Eaglercraft",
+    tagline: "A blocky sandbox in your browser",
+    description:
+      "The legendary browser sandbox — mine, craft, build and survive in an infinite voxel world. Singleplayer works instantly; servers let you join friends. A true Minecraft-style experience that runs on school Chromebooks.",
+    src: "https://eaglercraft.q13x.com/1.8.8_2/js/",
+    fallbackUrl: "https://eaglercraft.q13x.com/1.8.8_2/js/",
+    sandbox: SANDBOX,
+    artGradient: "from-[#3dff8b] via-[#ffe14d] to-[#ff7a1a]",
+    accentText: "text-[#3dff8b]",
+    accentChip: "bg-[#3dff8b]",
+    genre: "Sandbox · Survival",
+    controls: "WASD + mouse — mine, build & survive",
+    players: "Singleplayer & servers",
+  },
 ];
 
 export function getGame(slug: string | undefined): NeonGame | undefined {

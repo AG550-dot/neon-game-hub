@@ -76,10 +76,10 @@ export default function Landing() {
                 variants={item}
                 className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground"
               >
-                Slope, Retro Bowl 25, Run 3 and Cookie Clicker — the legendary
-                arcade classics, unblocked and running instantly in your
-                browser. Built for Chromebooks, school laptops, and boring
-                study halls.
+                Slope, Retro Bowl 25, Run 3, Cookie Clicker, Gladihoppers and
+                Eaglercraft — legendary arcade classics, unblocked and running
+                instantly in your browser. Built for Chromebooks, school
+                laptops, and boring study halls.
               </motion.p>
 
               <motion.div
@@ -118,7 +118,7 @@ export default function Landing() {
                   Chromebooks
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Star className="size-4 text-[#ffe14d]" /> 4 legendary games
+                  <Star className="size-4 text-[#ffe14d]" /> 6 legendary games
                 </span>
               </motion.div>
             </motion.div>
@@ -152,6 +152,8 @@ export default function Landing() {
                   "RETRO BOWL 25",
                   "RUN 3",
                   "COOKIE CLICKER",
+                  "GLADIHOPPERS",
+                  "EAGLECRAFT",
                   "UNBLOCKED AT SCHOOL",
                   "NO DOWNLOADS",
                   "FREE FOREVER",
@@ -572,7 +574,7 @@ const FEATURES = [
 const STEPS = [
   {
     title: "Pick your game",
-    body: "Slope for speed, Retro Bowl 25 for glory, Run 3 for puzzles, Cookie Clicker for idle zen. All four are one click away.",
+    body: "Slope for speed, Retro Bowl 25 for glory, Run 3 for puzzles, Cookie Clicker for idle zen, Gladihoppers for chaos, Eaglercraft for building. All one click away.",
   },
   {
     title: "Hit play",
@@ -585,7 +587,7 @@ const STEPS = [
 ];
 
 const STATS = [
-  { value: "4", label: "Legendary games" },
+  { value: "6", label: "Legendary games" },
   { value: "0", label: "Downloads needed" },
   { value: "100%", label: "Free to play" },
   { value: "∞", label: "Recess hours saved" },

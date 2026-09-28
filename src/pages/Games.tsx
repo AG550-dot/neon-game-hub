@@ -176,9 +176,9 @@ export default function Games() {
                   <Gamepad2 className="size-4" /> Curated classics
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Slope, Retro Bowl 25, Run 3 and Cookie Clicker — proven
-                  legends with millions of fans. We only list games worth your
-                  free period.
+                  Slope, Retro Bowl 25, Run 3, Cookie Clicker, Gladihoppers and
+                  Eaglercraft — proven legends with millions of fans. We only
+                  list games worth your free period.
                 </p>
               </div>
             </div>

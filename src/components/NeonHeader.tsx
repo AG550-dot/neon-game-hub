@@ -8,9 +8,16 @@ const NAV_LINKS = [
   { label: "Home", to: "/" },
   { label: "All Games", to: "/games" },
   { label: "Slope", to: "/play/slope" },
+  { label: "Eaglercraft", to: "/play/eaglercraft" },
+];
+
+const ALL_GAME_LINKS = [
+  { label: "Slope", to: "/play/slope" },
   { label: "Retro Bowl 25", to: "/play/retro-bowl-25" },
   { label: "Run 3", to: "/play/run-3" },
   { label: "Cookie Clicker", to: "/play/cookie-clicker" },
+  { label: "Gladihoppers", to: "/play/gladihoppers" },
+  { label: "Eaglercraft", to: "/play/eaglercraft" },
 ];
 
 export default function NeonHeader() {
@@ -107,7 +114,19 @@ export default function NeonHeader() {
       {open && (
         <div className="border-t border-[#b026ff33] bg-[#0b0520]/95 px-4 py-4 lg:hidden">
           <nav className="flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
+            {NAV_LINKS.slice(0, 2).map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                className="rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground hover:bg-[#b026ff1a] hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <p className="mt-2 px-3 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/70">
+              Games
+            </p>
+            {ALL_GAME_LINKS.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
