@@ -4,8 +4,19 @@ export type NeonGame = {
   title: string;
   tagline: string;
   description: string;
-  /** Source URL embedded in the iframe */
+  /**
+   * URL embedded in the iframe. Points DIRECTLY at the game itself
+   * (canvas/app entry), not the ad-wrapped portal page, so it runs
+   * cleanly inside our arcade frame.
+   */
   src: string;
+  /**
+   * Where to send players if embedding is ever blocked by the host
+   * (school filter, CORS policy change, etc.). Opens in a new tab.
+   */
+  fallbackUrl: string;
+  /** Permissive sandbox for these trusted, static game builds. */
+  sandbox: string;
   /** Tailwind gradient classes for the card art */
   artGradient: string;
   /** Tailwind text color class matching the accent */
@@ -17,6 +28,11 @@ export type NeonGame = {
   players: string;
 };
 
+/** Sandbox token list shared by all hosted games (no allow-top-navigation,
+ *  so frame-buster code can never yank the whole arcade page away). */
+const SANDBOX =
+  "allow-scripts allow-same-origin allow-pointer-lock allow-popups allow-forms allow-downloads allow-modals allow-orientation-lock";
+
 export const GAMES: NeonGame[] = [
   {
     slug: "slope",
@@ -24,7 +40,9 @@ export const GAMES: NeonGame[] = [
     tagline: "Ride the endless neon slope",
     description:
       "Roll a glowing ball down a steep 3D slope that never stops accelerating. Dodge red blocks, ride the ramps, and chase a leaderboard score that climbs with every meter. One of the most legendary unblocked games ever made.",
-    src: "https://slope-pro.github.io/",
+    src: "https://slope-pro.github.io/slope-github/",
+    fallbackUrl: "https://slope-pro.github.io/",
+    sandbox: SANDBOX,
     artGradient: "from-[#ff2ea6] via-[#b026ff] to-[#2e6bff]",
     accentText: "text-[#ff2ea6]",
     accentChip: "bg-[#ff2ea6]",
@@ -38,7 +56,9 @@ export const GAMES: NeonGame[] = [
     tagline: "Coach your pixel dynasty",
     description:
       "The beloved retro football sim, fully unblocked. Draft your roster, call the plays, throw dot-perfect passes and take your pixel franchise all the way to the Retro Bowl. Simple controls, deep season management.",
-    src: "https://retrobowl25unblocked.github.io/",
+    src: "https://retrobowl25unblocked.github.io/game/",
+    fallbackUrl: "https://retrobowl25unblocked.github.io/",
+    sandbox: SANDBOX,
     artGradient: "from-[#3dff8b] via-[#00e5ff] to-[#2e6bff]",
     accentText: "text-[#3dff8b]",
     accentChip: "bg-[#3dff8b]",
@@ -52,7 +72,9 @@ export const GAMES: NeonGame[] = [
     tagline: "Sprint through the void",
     description:
       "Run through a crumbling neon tunnel floating in space where the whole level rotates as you move. Jump gaps, flip gravity along the walls and unlock new characters across dozens of levels — or go infinite.",
-    src: "https://run3-pro.github.io/",
+    src: "https://run31225.github.io/",
+    fallbackUrl: "https://run3-pro.github.io/",
+    sandbox: SANDBOX,
     artGradient: "from-[#00e5ff] via-[#b026ff] to-[#ff2ea6]",
     accentText: "text-[#00e5ff]",
     accentChip: "bg-[#00e5ff]",
@@ -67,6 +89,8 @@ export const GAMES: NeonGame[] = [
     description:
       "The original idle mega-hit. Click a giant cookie, buy grandmas, farms and portals, and watch your cookies-per-second explode into the millions. The perfect low-key tab to keep open during study hall.",
     src: "https://g8hh.github.io/cookieclicker/",
+    fallbackUrl: "https://g8hh.github.io/cookieclicker/",
+    sandbox: SANDBOX,
     artGradient: "from-[#ffe14d] via-[#ff7a1a] to-[#ff2ea6]",
     accentText: "text-[#ffe14d]",
     accentChip: "bg-[#ffe14d]",

@@ -6,10 +6,10 @@ import { GAMES, getGame } from "@/lib/games";
 import {
   ArrowLeft,
   ChevronRight,
+  ExternalLink,
   Keyboard,
   Maximize2,
   Monitor,
-  ShieldCheck,
   Zap,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -155,7 +155,8 @@ export default function Play() {
               src={game.src}
               title={`${game.title} — play unblocked`}
               className="absolute inset-0 size-full border-0"
-              allow="fullscreen; autoplay; gamepad"
+              allow="fullscreen; autoplay; gamepad; pointer-lock"
+              sandbox={game.sandbox}
               loading="eager"
               onLoad={() => setLoaded(true)}
             />
@@ -196,17 +197,25 @@ export default function Play() {
               </p>
             </div>
           </div>
-          <div className="neon-card flex items-start gap-3 rounded-xl p-4">
+          <a
+            href={game.fallbackUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="neon-card group flex items-start gap-3 rounded-xl p-4"
+          >
             <span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-[#3dff8b55] bg-[#3dff8b1a]">
-              <ShieldCheck className="size-4 text-[#3dff8b]" />
+              <ExternalLink className="size-4 text-[#3dff8b]" />
             </span>
             <div>
-              <p className="text-sm font-semibold">Safe & free</p>
+              <p className="text-sm font-semibold group-hover:text-[#3dff8b]">
+                Not loading?
+              </p>
               <p className="mt-0.5 text-sm text-muted-foreground">
-                No sign-up, no installs, no shady redirects. Just play.
+                Open {game.title} in a new tab — works even behind strict
+                school filters.
               </p>
             </div>
-          </div>
+          </a>
         </div>
 
         {/* About section — SEO copy */}
