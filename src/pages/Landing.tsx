@@ -118,7 +118,7 @@ export default function Landing() {
                   Chromebooks
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Star className="size-4 text-[#ffe14d]" /> 12 legendary games
+                  <Star className="size-4 text-[#ffe14d]" /> {GAMES.length} legendary games
                 </span>
               </motion.div>
             </motion.div>
@@ -184,7 +184,7 @@ export default function Landing() {
             sub="Four icons. Zero downloads. Each one a certified school-day classic — pick your poison."
           />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {GAMES.slice(0, 6).map((game, i) => (
+            {GAMES.slice(0, 4).map((game, i) => (
               <motion.div
                 key={game.slug}
                 initial={{ opacity: 0, y: 28 }}
@@ -587,8 +587,8 @@ const STEPS = [
 ];
 
 const STATS = [
-  { value: "12", label: "Legendary games" },
-  { value: "9", label: "Genres" },
+  { value: String(GAMES.length), label: "Legendary games" },
+  { value: "17", label: "Genres" },
   { value: "0", label: "Downloads needed" },
   { value: "100%", label: "Free to play" },
   { value: "∞", label: "Recess hours saved" },

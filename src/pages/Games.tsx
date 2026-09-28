@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
+  GAMES,
   getGenreStats,
   searchGames,
 } from "@/lib/games";
@@ -68,7 +69,9 @@ export default function Games() {
                 className="neon-chip mb-4 border-none px-3 py-1 text-xs font-semibold"
               >
                 <Gamepad2 className="mr-1.5 size-3.5" />
-                {results.length} free games · no sign-up
+                {results.length === GAMES.length
+                  ? `${GAMES.length} free games · 17 genres`
+                  : `${results.length} of ${GAMES.length} games`}
               </Badge>
               <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
                 <span className="text-rainbow">All Unblocked Games</span>
@@ -91,7 +94,7 @@ export default function Games() {
               </h2>
               <div className="h-px flex-1 bg-gradient-to-r from-[#b026ff55] to-transparent" />
             </div>
-            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-6">
               {genreStats.map(({ genre, count }) => (
                 <Link
                   key={genre}
@@ -121,7 +124,7 @@ export default function Games() {
                 setQuery(e.target.value);
                 updateUrl(e.target.value);
               }}
-              placeholder="Search 12 games — try “slope”, “minecraft”, “puzzle”, “retro”…"
+              placeholder={`Search ${GAMES.length} games — try “fnaf”, “minecraft”, “puzzle”, “retro”…`}
               className="h-12 rounded-full border-[#b026ff4d] bg-[#100824] pl-11 pr-5 text-base placeholder:text-muted-foreground/70 focus-visible:ring-[#00e5ff]"
               aria-label="Search games"
             />

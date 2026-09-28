@@ -207,7 +207,7 @@ const PERKS = [
 ];
 
 const STATUS = [
-  { label: "Games online", value: "12 / 12" },
+  { label: "Games online", value: `${GAMES.length} / ${GAMES.length}` },
   { label: "Your membership", value: "Free" },
   { label: "Ads served", value: "0" },
   { label: "Vibe level", value: "MAX" },

@@ -52,6 +52,34 @@ const GENRE_META: Record<
     blurb: "The legends that started everything — faithfully preserved.",
     seo: "classic retro arcade games unblocked",
   },
+  Shooter: {
+    blurb: "Lock, load, build. Precision chaos in every round.",
+    seo: "unblocked shooter games for school",
+  },
+  Multiplayer: {
+    blurb: "Live arenas packed with real rivals. No bots allowed.",
+    seo: "free multiplayer io games unblocked",
+  },
+  Ragdoll: {
+    blurb: "Floppy limbs, devious traps, spectacular failures.",
+    seo: "ragdoll physics games unblocked",
+  },
+  Rhythm: {
+    blurb: "Feel the beat. Miss the jump. Scream. Retry.",
+    seo: "rhythm music games unblocked",
+  },
+  Trivia: {
+    blurb: "Quiz games that question your sanity, not your knowledge.",
+    seo: "trick question quiz games unblocked",
+  },
+  Cooking: {
+    blurb: "Serve fast, build perfect, keep the customers happy.",
+    seo: "cooking time management games unblocked",
+  },
+  Horror: {
+    blurb: "Headphones on. Lights off. Good luck.",
+    seo: "horror games unblocked online",
+  },
 };
 
 export default function Genre() {

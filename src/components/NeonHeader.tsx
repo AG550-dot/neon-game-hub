@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/hooks/use-auth";
-import { getGenreStats, searchGames } from "@/lib/games";
+import { GAMES, getGenreStats, searchGames } from "@/lib/games";
 import {
   ChevronDown,
   Gamepad2,
@@ -96,7 +96,7 @@ export default function NeonHeader() {
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setFocused(true)}
               onBlur={() => setTimeout(() => setFocused(false), 150)}
-              placeholder="Search 12 games — slope, minecraft, puzzle…"
+              placeholder={`Search ${GAMES.length} games — fnaf, minecraft, puzzle…`}
               className="h-10 w-full rounded-full border border-[#b026ff4d] bg-[#100824] pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-all focus:border-[#00e5ff88] focus:shadow-[0_0_18px_rgba(0,229,255,0.2)]"
               aria-label="Search games"
             />
