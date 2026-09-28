@@ -99,7 +99,11 @@ export default function Play() {
     }
   };
 
-  const others = GAMES.filter((g) => g.slug !== game.slug);
+  // Related games: same genre first, then the rest of the vault
+  const others = [
+    ...GAMES.filter((g) => g.slug !== game.slug && g.genre === game.genre),
+    ...GAMES.filter((g) => g.slug !== game.slug && g.genre !== game.genre),
+  ];
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -301,11 +305,17 @@ export default function Play() {
         <section className="mt-10">
           <div className="mb-4 flex items-center gap-3">
             <ChevronRight className="size-5 text-[#ff2ea6]" />
-            <h2 className="font-display text-xl font-bold">More unblocked games</h2>
+            <h2 className="font-display text-xl font-bold">More {game.genre.toLowerCase()} games</h2>
             <div className="h-px flex-1 bg-gradient-to-r from-[#b026ff55] to-transparent" />
+            <Link
+              to={`/genre/${encodeURIComponent(game.genre.toLowerCase())}`}
+              className="text-xs font-semibold text-[#00e5ff] hover:underline"
+            >
+              View all →
+            </Link>
           </div>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {others.map((g) => (
+            {others.slice(0, 4).map((g) => (
               <GameTile key={g.slug} game={g} />
             ))}
           </div>

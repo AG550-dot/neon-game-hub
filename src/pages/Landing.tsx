@@ -118,7 +118,7 @@ export default function Landing() {
                   Chromebooks
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <Star className="size-4 text-[#ffe14d]" /> 6 legendary games
+                  <Star className="size-4 text-[#ffe14d]" /> 12 legendary games
                 </span>
               </motion.div>
             </motion.div>
@@ -130,7 +130,7 @@ export default function Landing() {
               transition={{ delay: 0.35, duration: 0.7, ease: "easeOut" }}
               className="mt-14 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4"
             >
-              {GAMES.map((game, i) => (
+              {GAMES.slice(0, 8).map((game, i) => (
                 <div
                   key={game.slug}
                   className={i % 2 === 1 ? "lg:translate-y-6" : ""}
@@ -184,13 +184,13 @@ export default function Landing() {
             sub="Four icons. Zero downloads. Each one a certified school-day classic — pick your poison."
           />
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {GAMES.map((game, i) => (
+            {GAMES.slice(0, 6).map((game, i) => (
               <motion.div
                 key={game.slug}
                 initial={{ opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.5, delay: i * 0.08 }}
+                transition={{ duration: 0.5, delay: (i % 6) * 0.08 }}
               >
                 <FeaturedGameRow game={game} index={i} />
               </motion.div>
@@ -587,7 +587,8 @@ const STEPS = [
 ];
 
 const STATS = [
-  { value: "6", label: "Legendary games" },
+  { value: "12", label: "Legendary games" },
+  { value: "9", label: "Genres" },
   { value: "0", label: "Downloads needed" },
   { value: "100%", label: "Free to play" },
   { value: "∞", label: "Recess hours saved" },

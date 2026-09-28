@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { GAMES, type NeonGame } from "@/lib/games";
 import { motion } from "framer-motion";
 import { Play, Users } from "lucide-react";
@@ -49,16 +48,25 @@ function GameCardInner({ game }: { game: NeonGame }) {
             <h3 className="font-display text-lg font-bold text-foreground">
               {game.title}
             </h3>
-            <Badge
-              variant="outline"
-              className="neon-chip shrink-0 border-none px-2 py-0.5 text-[10px] font-semibold"
+            <span
+              className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold text-[#0a0320] ${game.accentChip}`}
             >
-              {game.genre.split(" · ")[0]}
-            </Badge>
+              {game.genre}
+            </span>
           </div>
-          <p className="mb-4 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+          <p className="mb-3 line-clamp-2 text-sm leading-relaxed text-muted-foreground">
             {game.description}
           </p>
+          <div className="mb-3 flex flex-wrap gap-1.5">
+            {game.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-[#b026ff3d] bg-[#b026ff0d] px-2 py-0.5 text-[10px] font-semibold text-muted-foreground"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
           <div className="mt-auto flex items-center justify-between border-t border-[#b026ff26] pt-3 text-xs text-muted-foreground">
             <span className="flex items-center gap-1.5">
               <Users className="size-3.5" />

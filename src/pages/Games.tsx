@@ -3,53 +3,50 @@ import NeonHeader from "@/components/NeonHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { GAMES } from "@/lib/games";
+import {
+  getGenreStats,
+  searchGames,
+} from "@/lib/games";
 import { motion } from "framer-motion";
-import { ChevronDown, Gamepad2, Search, Sparkles, Zap } from "lucide-react";
+import {
+  ArrowRight,
+  ChevronDown,
+  Gamepad2,
+  LayoutGrid,
+  Sparkles,
+  Zap,
+} from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 
+const genreStats = getGenreStats();
+
 export default function Games() {
-  const [query, setQuery] = useState("");
-  const [genre, setGenre] = useState<string>("All");
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [query, setQuery] = useState(searchParams.get("q") ?? "");
   const navigate = useNavigate();
 
   useEffect(() => {
     document.title =
-      "All Unblocked Games — Slope, Retro Bowl, Run 3 & More | NeonPlay Arcade";
+      "All Unblocked Games — Slope, Retro Bowl, Eaglercraft & More | NeonPlay Arcade";
     return () => {
       document.title = "NeonPlay Arcade — Unblocked Games for School";
     };
   }, []);
 
-  // Prefill the search box when arriving via /games?q=...
+  // Keep the input in sync when the header search navigates here with ?q=
   useEffect(() => {
     const q = searchParams.get("q");
-    if (q) {
-      setQuery(q);
-      navigate("/games", { replace: true });
-    }
+    if (q !== null) setQuery(q);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
 
-  const genres = useMemo(
-    () => ["All", ...new Set(GAMES.map((g) => g.genre.split(" · ")[0]))],
-    [],
-  );
+  const results = useMemo(() => searchGames(query), [query]);
 
-  const filtered = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    return GAMES.filter((g) => {
-      const matchesGenre = genre === "All" || g.genre.startsWith(genre);
-      const matchesQuery =
-        q === "" ||
-        g.title.toLowerCase().includes(q) ||
-        g.tagline.toLowerCase().includes(q) ||
-        g.genre.toLowerCase().includes(q);
-      return matchesGenre && matchesQuery;
-    });
-  }, [query, genre]);
+  const updateUrl = (q: string) => {
+    if (q.trim()) setSearchParams({ q: q.trim() });
+    else setSearchParams({});
+  };
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -71,7 +68,7 @@ export default function Games() {
                 className="neon-chip mb-4 border-none px-3 py-1 text-xs font-semibold"
               >
                 <Gamepad2 className="mr-1.5 size-3.5" />
-                The full arcade
+                {results.length} free games · no sign-up
               </Badge>
               <h1 className="font-display text-4xl font-extrabold tracking-tight sm:text-5xl">
                 <span className="text-rainbow">All Unblocked Games</span>
@@ -84,59 +81,75 @@ export default function Games() {
           </div>
         </section>
 
-        {/* Search + filter bar */}
-        <section className="sticky top-16 z-40 border-y border-[#b026ff26] bg-[#070214]/85 px-4 py-3 backdrop-blur-xl sm:px-6">
-          <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search games — try “slope” or “football”…"
-                className="border-[#b026ff4d] bg-[#100824] pl-9 placeholder:text-muted-foreground/70 focus-visible:ring-[#00e5ff]"
-              />
+        {/* Genre shelves */}
+        <section className="mx-auto w-full max-w-7xl px-4 sm:px-6">
+          <div className="neon-card rounded-2xl p-5 sm:p-6">
+            <div className="mb-4 flex items-center gap-3">
+              <LayoutGrid className="size-5 text-[#ff2ea6]" />
+              <h2 className="font-display text-lg font-bold">
+                Browse by <span className="text-rainbow">genre</span>
+              </h2>
+              <div className="h-px flex-1 bg-gradient-to-r from-[#b026ff55] to-transparent" />
             </div>
-            <div className="flex flex-wrap items-center gap-2">
-              {genres.map((g) => (
-                <button
-                  key={g}
-                  onClick={() => setGenre(g)}
-                  className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-all ${
-                    genre === g
-                      ? "btn-neon"
-                      : "border border-[#b026ff4d] text-muted-foreground hover:border-[#00e5ff80] hover:text-foreground"
-                  }`}
+            <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5">
+              {genreStats.map(({ genre, count }) => (
+                <Link
+                  key={genre}
+                  to={`/genre/${encodeURIComponent(genre.toLowerCase())}`}
+                  className="group flex items-center justify-between rounded-xl border border-[#b026ff33] bg-[#0b0520]/60 px-3.5 py-3 transition-all hover:-translate-y-0.5 hover:border-[#00e5ff88] hover:shadow-[0_0_18px_rgba(0,229,255,0.15)]"
                 >
-                  {g}
-                </button>
+                  <span className="text-sm font-bold">{genre}</span>
+                  <span className="flex items-center gap-1.5">
+                    <span className="rounded-full bg-[#00e5ff14] px-2 py-0.5 text-[10px] font-bold text-[#9bf3ff]">
+                      {count}
+                    </span>
+                    <ArrowRight className="size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-[#00e5ff]" />
+                  </span>
+                </Link>
               ))}
             </div>
           </div>
         </section>
 
+        {/* Search + filter bar */}
+        <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6">
+          <div className="relative">
+            <SearchIcon />
+            <Input
+              value={query}
+              onChange={(e) => {
+                setQuery(e.target.value);
+                updateUrl(e.target.value);
+              }}
+              placeholder="Search 12 games — try “slope”, “minecraft”, “puzzle”, “retro”…"
+              className="h-12 rounded-full border-[#b026ff4d] bg-[#100824] pl-11 pr-5 text-base placeholder:text-muted-foreground/70 focus-visible:ring-[#00e5ff]"
+              aria-label="Search games"
+            />
+          </div>
+        </section>
+
         {/* Game grid */}
-        <section className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
-          {filtered.length === 0 ? (
+        <section className="mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6">
+          {results.length === 0 ? (
             <div className="neon-card mx-auto max-w-md rounded-2xl p-10 text-center">
               <p className="font-display text-lg font-bold">No games found</p>
               <p className="mt-2 text-sm text-muted-foreground">
-                Nothing matches “{query}” in that genre. Try clearing the
-                filters.
+                Nothing matches “{query}”. Try “runner”, “puzzle” or “retro”.
               </p>
               <Button
                 variant="ghost"
                 className="btn-ghost-neon mt-4"
                 onClick={() => {
                   setQuery("");
-                  setGenre("All");
+                  updateUrl("");
                 }}
               >
-                Reset filters
+                Clear search
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {filtered.map((game) => (
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {results.map((game) => (
                 <GameCard key={game.slug} game={game} />
               ))}
             </div>
@@ -176,9 +189,9 @@ export default function Games() {
                   <Gamepad2 className="size-4" /> Curated classics
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Slope, Retro Bowl 25, Run 3, Cookie Clicker, Gladihoppers and
-                  Eaglercraft — proven legends with millions of fans. We only
-                  list games worth your free period.
+                  Slope, Eaglercraft, Pac-Man, Retro Bowl and more — proven
+                  legends with millions of fans. We only list games worth your
+                  free period.
                 </p>
               </div>
             </div>
@@ -228,10 +241,28 @@ export default function Games() {
   );
 }
 
+function SearchIcon() {
+  return (
+    <svg
+      className="pointer-events-none absolute left-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      <circle cx="11" cy="11" r="8" />
+      <path d="m21 21-4.3-4.3" />
+    </svg>
+  );
+}
+
 const FAQS = [
   {
     q: "Are these games really unblocked at school?",
-    a: "Yes. Every game on NeonPlay Arcade is built directly into the site itself, so it loads over standard web traffic with nothing extra to block — no third-party game hosts, no installs, no VPN, no sign-up required to play.",
+    a: "Yes. NeonPlay Arcade runs games over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. No installs, no VPN, no sign-up required to play.",
   },
   {
     q: "Do I need to download or install anything?",

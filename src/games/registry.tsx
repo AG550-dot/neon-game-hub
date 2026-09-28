@@ -16,6 +16,9 @@ export const NATIVE_GAMES: Record<string, React.ComponentType<NativeGameProps>> 
   "retro-bowl-25": PixelBowl,
   "run-3": VoidRunner,
   "cookie-clicker": NeonClicker,
+  // Hosted-embed-only games (Gladihoppers, Eaglercraft, 2048, Clumsy Bird,
+  // Astray, Pac-Man, HexGL, Chrome Dino) are not listed here — Play.tsx
+  // defaults them to hosted mode.
 };
 
 export function getNativeGame(slug: string | undefined) {

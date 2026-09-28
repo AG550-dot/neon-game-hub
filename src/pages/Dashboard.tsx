@@ -77,7 +77,7 @@ export default function Dashboard() {
             <div className="h-px flex-1 bg-gradient-to-r from-[#b026ff55] to-transparent" />
           </div>
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {GAMES.map((game) => (
+            {GAMES.slice(0, 8).map((game) => (
               <GameTile key={game.slug} game={game} />
             ))}
           </div>
@@ -207,7 +207,7 @@ const PERKS = [
 ];
 
 const STATUS = [
-  { label: "Games online", value: "6 / 6" },
+  { label: "Games online", value: "12 / 12" },
   { label: "Your membership", value: "Free" },
   { label: "Ads served", value: "0" },
   { label: "Vibe level", value: "MAX" },
