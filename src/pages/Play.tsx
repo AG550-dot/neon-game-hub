@@ -1,6 +1,7 @@
 import GameTile from "@/components/GameTile";
 import NeonHeader from "@/components/NeonHeader";
 import AdBanner, {
+  AdBannerLeaderboard,
   AdBannerSmall,
   AdBannerTower,
 } from "@/components/AdBanner";
@@ -165,6 +166,9 @@ export default function Play() {
             </a>
           </div>
         </div>
+
+        {/* Leaderboard — directly above the game, the site's prime slot */}
+        <AdBannerLeaderboard className="mb-4" />
 
         {/* Game stage */}
         <div ref={shellRef} className="rainbow-ring relative rounded-2xl">

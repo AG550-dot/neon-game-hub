@@ -125,6 +125,9 @@ export default function Landing() {
               </motion.div>
             </motion.div>
 
+            {/* Leaderboard — prime above-the-fold slot under the hero CTAs */}
+            <AdBannerLeaderboard className="mt-10" />
+
             {/* Floating game tiles preview */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
@@ -173,9 +176,6 @@ export default function Landing() {
             ))}
           </div>
         </div>
-
-        {/* Leaderboard — after the marquee */}
-        <AdBannerLeaderboard className="mx-auto max-w-7xl px-4 sm:px-6 my-10" />
 
         {/* ===================== FEATURED GAMES ===================== */}
         <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6">

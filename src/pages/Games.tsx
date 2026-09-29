@@ -21,10 +21,17 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 
 const genreStats = getGenreStats();
+
+// In-grid leaderboard cadence: one ad row every 16 games, capped at 3 per page
+const GRID_AD_EVERY = 16;
+const GRID_AD_MAX = 3;
+const GRID_AD_SLOTS = new Set(
+  Array.from({ length: GRID_AD_MAX }, (_, n) => (n + 1) * GRID_AD_EVERY - 1),
+);
 
 export default function Games() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -167,8 +174,15 @@ export default function Games() {
           ) : (
             <>
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {shown.map((game) => (
-                  <GameCard key={game.slug} game={game} />
+                {shown.map((game, i) => (
+                  <Fragment key={game.slug}>
+                    <GameCard game={game} />
+                    {GRID_AD_SLOTS.has(i) && (
+                      <div className="col-span-full flex justify-center">
+                        <AdBannerLeaderboard className="w-full" />
+                      </div>
+                    )}
+                  </Fragment>
                 ))}
               </div>
               <AdBanner className="my-8" />
