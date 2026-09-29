@@ -1,0 +1,1 @@
+import{r as m}from"./react-vendor-vx7cRQHm.js";function u(r,t=!1){const n=m.useRef(r);n.current=r,m.useEffect(()=>{if(t)return;let e=0,o=performance.now();const a=c=>{const s=Math.min((c-o)/1e3,.05);o=c;try{n.current(s)}catch(i){console.error("[game loop]",i)}e=requestAnimationFrame(a)};return e=requestAnimationFrame(a),()=>cancelAnimationFrame(e)},[t])}export{u};

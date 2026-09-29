@@ -1,0 +1,17 @@
+{
+  "name": "NeonPlay Arcade — Unblocked Games for School",
+  "short_name": "NeonPlay",
+  "description": "Play Slope, Retro Bowl 25, Run 3 and Cookie Clicker unblocked — free browser games for school, no downloads.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#070214",
+  "theme_color": "#070214",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

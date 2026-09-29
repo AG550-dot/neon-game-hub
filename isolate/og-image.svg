@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#070214"/>
+      <stop offset="1" stop-color="#150b31"/>
+    </linearGradient>
+    <linearGradient id="rb" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff2ea6"/>
+      <stop offset="0.25" stop-color="#b026ff"/>
+      <stop offset="0.5" stop-color="#00e5ff"/>
+      <stop offset="0.75" stop-color="#3dff8b"/>
+      <stop offset="1" stop-color="#ffe14d"/>
+    </linearGradient>
+    <linearGradient id="txt" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#ff2ea6"/>
+      <stop offset="0.5" stop-color="#b026ff"/>
+      <stop offset="1" stop-color="#00e5ff"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="170" cy="120" r="160" fill="#b026ff" opacity="0.18"/>
+  <circle cx="1050" cy="520" r="200" fill="#00e5ff" opacity="0.14"/>
+  <circle cx="900" cy="90" r="110" fill="#ff2ea6" opacity="0.14"/>
+  <rect x="0" y="520" width="1200" height="14" fill="url(#rb)" filter="url(#glow)"/>
+  <rect x="90" y="150" width="64" height="64" rx="16" fill="#0b0520" stroke="url(#txt)" stroke-width="3"/>
+  <path d="M330 158 L262 216 h32 L284 306 L356 226 h-34 Z" transform="translate(-230 -100)" fill="url(#txt)"/>
+  <text x="180" y="210" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="84" fill="url(#txt)" filter="url(#glow)">NeonPlay Arcade</text>
+  <text x="182" y="290" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="40" fill="#f4efff">Unblocked Games for School</text>
+  <text x="182" y="360" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="28" fill="#a79bd1">Slope · Retro Bowl 25 · Run 3 · Cookie Clicker</text>
+  <text x="182" y="430" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="24" fill="#a79bd1">Free · No downloads · Instant play on Chromebooks</text>
+  <g font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="24" fill="#0a0320">
+    <rect x="182" y="470" width="230" height="52" rx="26" fill="url(#rb)" filter="url(#glow)"/>
+    <text x="215" y="504" transform="translate(0 0)">▶ Play now</text>
+  </g>
+</svg>
