@@ -53,3 +53,54 @@ export default function AdBanner({
     />
   );
 }
+
+const SMALL_AD_SRCDOC = `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      atOptions = {
+        'key' : 'f1298da421358782c72482936522ba55',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    <\/script>
+    <script type="text/javascript" src="https://www.highrevenueformat.com/f1298da421358782c72482936522ba55/invoke.js"><\/script>
+  </body>
+</html>`;
+
+/**
+ * Second ad slot — 320×50 iframe-format banner.
+ *
+ * This network's invoke.js writes its markup with document.write, which must
+ * never run against the main document in an SPA (it would wipe the page).
+ * The snippet is therefore injected verbatim into an isolated srcDoc iframe,
+ * so document.write only touches that iframe's own tiny document.
+ */
+export function AdBannerSmall({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`flex min-h-[78px] w-full items-center justify-center overflow-hidden ${className}`}
+      aria-hidden="true"
+    >
+      <iframe
+        srcDoc={SMALL_AD_SRCDOC}
+        title="Advertisement"
+        width={320}
+        height={50}
+        scrolling="no"
+        frameBorder={0}
+        sandbox="allow-scripts allow-popups allow-same-origin"
+        loading="lazy"
+        className="block bg-transparent"
+      />
+    </div>
+  );
+}

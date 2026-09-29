@@ -1,6 +1,6 @@
 import GameTile from "@/components/GameTile";
 import NeonHeader from "@/components/NeonHeader";
-import AdBanner from "@/components/AdBanner";
+import AdBanner, { AdBannerSmall } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES, getGame } from "@/lib/games";
@@ -304,6 +304,9 @@ export default function Play() {
             Chromebooks and school laptops.
           </p>
         </section>
+
+        {/* Ad banner #2 — 320×50, isolated iframe */}
+        <AdBannerSmall className="mt-6" />
 
         {/* Related games */}
         <section className="mt-10">

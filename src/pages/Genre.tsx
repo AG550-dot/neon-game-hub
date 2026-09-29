@@ -1,5 +1,6 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
+import { AdBannerSmall } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getGamesByGenre, type Genre } from "@/lib/games";
@@ -163,6 +164,9 @@ export default function Genre() {
             ))}
           </div>
         </section>
+
+        {/* Ad banner #2 — 320×50, isolated iframe */}
+        <AdBannerSmall className="mb-10" />
 
         {/* SEO copy */}
         <section className="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">
