@@ -1,5 +1,6 @@
 import GameTile from "@/components/GameTile";
 import NeonHeader from "@/components/NeonHeader";
+import AdBanner from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES, getGame } from "@/lib/games";
@@ -246,6 +247,9 @@ export default function Play() {
             original from the web.
           </span>
         </div>
+
+        {/* Ad banner — right under the game (highest-visibility slot) */}
+        <AdBanner className="mt-4" />
 
         {/* Info strip */}
         <div className="mt-6 grid gap-4 sm:grid-cols-3">

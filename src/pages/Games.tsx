@@ -1,5 +1,6 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
+import AdBanner from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -161,6 +162,7 @@ export default function Games() {
                   <GameCard key={game.slug} game={game} />
                 ))}
               </div>
+              <AdBanner className="my-8" />
               {results.length > shown.length && (
                 <div className="mt-10 text-center">
                   <Button
