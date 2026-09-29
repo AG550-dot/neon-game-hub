@@ -97,7 +97,7 @@ export default function NeonHeader() {
               onChange={(e) => setQuery(e.target.value)}
               onFocus={() => setFocused(true)}
               onBlur={() => setTimeout(() => setFocused(false), 150)}
-              placeholder={`Search ${GAMES.length} games — fnaf, minecraft, puzzle…`}
+              placeholder={`Search ${GAMES.length} games — fnaf, papa's, puzzle…`}
               className="h-10 w-full rounded-full border border-[#b026ff4d] bg-[#100824] pl-9 pr-4 text-sm text-foreground placeholder:text-muted-foreground/70 outline-none transition-all focus:border-[#00e5ff88] focus:shadow-[0_0_18px_rgba(0,229,255,0.2)]"
               aria-label="Search games"
             />
@@ -278,7 +278,7 @@ export default function NeonHeader() {
             All games
           </p>
           <nav className="flex flex-col gap-1">
-            {searchGames("").map((g) => (
+            {searchGames("").slice(0, 30).map((g) => (
               <Link
                 key={g.slug}
                 to={`/play/${g.slug}`}

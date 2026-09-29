@@ -553,8 +553,8 @@ const FEATURES = [
   {
     icon: Lock,
     tone: "border-[#b026ff55] bg-[#b026ff1a] text-[#c04bff]",
-    title: "Built-in, unblockable",
-    body: "Every game is coded directly into the site — no third-party game hosts for a school filter to single out. If the page loads, the games load.",
+    title: "Built-in backups",
+    body: "Our four flagship games — Slope, Retro Bowl 25, Run 3 and Cookie Clicker — are coded straight into the site, so they can never be blocked. Hosted games are checked and re-tested, and anything that breaks gets pulled, not patched over.",
   },
   {
     icon: MonitorSmartphone,
@@ -596,7 +596,7 @@ const STATS = [
 const FAQS = [
   {
     q: "Are these games really unblocked at school?",
-    a: "Yes. Every game on NeonPlay Arcade is built directly into the site itself, so it loads over standard web traffic with nothing extra to block — no third-party game hosts, no installs, no VPN, no sign-up required to play.",
+    a: "Games load over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. Our four built-in native games — Slope, Retro Bowl 25, Run 3 and Cookie Clicker — are coded straight into NeonPlay itself and always load. No installs, no VPN, no sign-up required to play.",
   },
   {
     q: "Do I need to download or install anything?",
