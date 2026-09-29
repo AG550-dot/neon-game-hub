@@ -1,4 +1,4 @@
-/** Core types + shared sandbox for the NeonPlay Arcade catalog. */
+/** Core types + shared sandbox for the UltraVector catalog. */
 
 export type NeonGame = {
   /** URL slug used in /play/:slug routes */

@@ -124,8 +124,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
               <Gamepad2 className="size-5 text-[#00e5ff]" />
             </span>
             <span className="font-display text-lg font-bold tracking-tight">
-              <span className="text-rainbow">NeonPlay</span>{" "}
-              <span className="text-foreground/80">Arcade</span>
+              <span className="text-rainbow">UltraVector</span>
             </span>
           </Link>
           <Button asChild variant="ghost" className="btn-ghost-neon">
@@ -321,7 +320,7 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
       </main>
 
       <footer className="relative z-10 border-t border-[#b026ff26] py-5 text-center text-xs text-muted-foreground">
-        NeonPlay Arcade — free unblocked games for school
+        UltraVector — free unblocked games for school
       </footer>
     </div>
   );

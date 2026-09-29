@@ -78,8 +78,7 @@ export default function NeonHeader() {
             <Gamepad2 className="size-5 text-[#00e5ff]" />
           </span>
           <span className="hidden font-display text-lg font-bold tracking-tight sm:inline">
-            <span className="text-rainbow">NeonPlay</span>{" "}
-            <span className="text-foreground/80">Arcade</span>
+            <span className="text-rainbow">UltraVector</span>
           </span>
         </Link>
 

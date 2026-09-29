@@ -29,7 +29,7 @@ export default function PixelBowl({ width, height }: NativeGameProps) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("neonplay.best.pixelbowl");
+      const raw = localStorage.getItem("ultravector.best.pixelbowl");
       if (raw) setBest(parseInt(raw, 10) || 0);
     } catch {
       /* ignore */

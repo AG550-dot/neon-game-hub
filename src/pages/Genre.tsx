@@ -1,6 +1,6 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
-import { AdBannerSmall } from "@/components/AdBanner";
+import { AdBannerLeaderboard, AdBannerSmall } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getGamesByGenre, type Genre } from "@/lib/games";
@@ -93,10 +93,10 @@ export default function Genre() {
 
   useEffect(() => {
     if (exists) {
-      document.title = `${genre} Games Unblocked — Free & Instant | NeonPlay Arcade`;
+      document.title = `${genre} Games Unblocked — Free & Instant | UltraVector`;
     }
     return () => {
-      document.title = "NeonPlay Arcade — Unblocked Games for School";
+      document.title = "UltraVector — Unblocked Games for School";
     };
   }, [exists, genre]);
 
@@ -165,6 +165,9 @@ export default function Genre() {
           </div>
         </section>
 
+        {/* Leaderboard — after the grid */}
+        <AdBannerLeaderboard className="mx-auto max-w-7xl px-4 sm:px-6" />
+
         {/* Ad banner #2 — 320×50, isolated iframe */}
         <AdBannerSmall className="mb-10" />
 
@@ -177,18 +180,18 @@ export default function Genre() {
               for school
             </h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Every {genre.toLowerCase()} game in the NeonPlay vault, playable
+              Every {genre.toLowerCase()} game in the UltraVector vault, playable
               free in your browser — no downloads, no sign-up, no installs.
               These {meta?.seo ?? "unblocked games"} work on school Chromebooks
               and laptops, loading instantly with fullscreen support. Pick a
-              game and hit play — the arcade is open.
+              game and hit play — the vault is open.
             </p>
           </div>
         </section>
       </main>
 
       <footer className="border-t border-[#b026ff26] py-6 text-center text-xs text-muted-foreground">
-        NeonPlay Arcade — free unblocked games for school. Play responsibly 😉
+        UltraVector — free unblocked games for school. Play responsibly 😉
       </footer>
     </div>
   );

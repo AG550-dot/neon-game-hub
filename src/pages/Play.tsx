@@ -1,6 +1,9 @@
 import GameTile from "@/components/GameTile";
 import NeonHeader from "@/components/NeonHeader";
-import AdBanner, { AdBannerSmall } from "@/components/AdBanner";
+import AdBanner, {
+  AdBannerSmall,
+  AdBannerTower,
+} from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES, getGame } from "@/lib/games";
@@ -42,10 +45,10 @@ export default function Play() {
     setHostedLoaded(false);
     setHostedKey((k) => k + 1);
     if (game) {
-      document.title = `${game.title} — Unblocked & Free | NeonPlay Arcade`;
+      document.title = `${game.title} — Unblocked & Free | UltraVector`;
     }
     return () => {
-      document.title = "NeonPlay Arcade — Unblocked Games for School";
+      document.title = "UltraVector — Unblocked Games for School";
     };
   }, [game?.slug, mode]);
 
@@ -79,7 +82,7 @@ export default function Play() {
           <p className="font-display text-5xl font-extrabold text-rainbow">404</p>
           <h1 className="font-display text-2xl font-bold">Game not found</h1>
           <p className="max-w-md text-muted-foreground">
-            That game isn&apos;t in the arcade. Pick one of our legendary
+            That game isn&apos;t in the vault. Pick one of our legendary
             unblocked titles instead.
           </p>
           <Button asChild className="btn-neon mt-2">
@@ -110,7 +113,8 @@ export default function Play() {
     <div className="flex min-h-screen flex-col">
       <NeonHeader />
 
-      <main className="mx-auto w-full max-w-7xl flex-1 px-4 pb-16 pt-6 sm:px-6">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 gap-6 px-4 pb-16 pt-6 sm:px-6">
+        <div className="min-w-0 flex-1">
         <Link
           to="/games"
           className="mb-4 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-[#00e5ff]"
@@ -298,8 +302,9 @@ export default function Play() {
             {game.description}
           </p>
           <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
-            Looking for {game.title.toLowerCase()} unblocked at school? NeonPlay
-            Arcade includes it built-in — playable instantly in your browser,
+            Looking for {game.title.toLowerCase()} unblocked at school?
+            UltraVector includes it built-in — playable instantly in your
+            browser,
             free, with no downloads and no sign-up required. Works great on
             Chromebooks and school laptops.
           </p>
@@ -327,10 +332,18 @@ export default function Play() {
             ))}
           </div>
         </section>
+        </div>
+
+        {/* Tower — sticky sidebar (desktop only) */}
+        <aside className="hidden w-[160px] shrink-0 xl:block">
+          <div className="sticky top-20">
+            <AdBannerTower />
+          </div>
+        </aside>
       </main>
 
       <footer className="border-t border-[#b026ff26] py-6 text-center text-xs text-muted-foreground">
-        NeonPlay Arcade — free unblocked games for school. Play responsibly 😉
+        UltraVector — free unblocked games for school. Play responsibly 😉
       </footer>
     </div>
   );

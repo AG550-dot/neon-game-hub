@@ -1,5 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { RequireAuth } from "@/components/RequireAuth";
+import { AdPopunder } from "@/components/AdBanner";
 import { VlyToolbar } from "../vly-toolbar-readonly.tsx";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { ConvexReactClient } from "convex/react";
@@ -119,6 +120,7 @@ createRoot(document.getElementById("root")!).render(
       <ConvexAuthProvider client={convex}>
         <BrowserRouter>
           <RouteSyncer />
+          <AdPopunder />
           <Suspense fallback={<RouteLoading />}>
             <Routes>
               <Route path="/" element={<Landing />} />

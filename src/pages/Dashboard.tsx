@@ -55,7 +55,7 @@ export default function Dashboard() {
               </span>
             </h1>
             <p className="mt-2 text-muted-foreground">
-              The arcade is open. Your games are warmed up and ready to launch.
+              The vault is open. Your games are warmed up and ready to launch.
             </p>
           </div>
           <Button
@@ -100,7 +100,7 @@ export default function Dashboard() {
                   Your neon perks are active
                 </CardTitle>
                 <CardDescription>
-                  Everything a free NeonPlay membership unlocks.
+                  Everything a free UltraVector membership unlocks.
                 </CardDescription>
               </CardHeader>
               <CardContent className="grid gap-4 sm:grid-cols-3">
@@ -131,10 +131,10 @@ export default function Dashboard() {
                   <Sparkles className="size-5 text-[#ff2ea6]" />
                 </span>
                 <CardTitle className="font-display">
-                  Arcade status
+                  Vault status
                 </CardTitle>
                 <CardDescription>
-                  Live stats from the NeonPlay vault.
+                  Live stats from the UltraVector vault.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
@@ -156,7 +156,7 @@ export default function Dashboard() {
                   className="neon-chip w-full justify-center border-none py-2 text-xs font-semibold"
                 >
                   <Clock className="mr-1.5 size-3.5" />
-                  Arcade runs 24/7 — even during math class
+                  UltraVector runs 24/7 — even during math class
                 </Badge>
               </CardContent>
             </Card>
@@ -172,14 +172,14 @@ export default function Dashboard() {
           <Button asChild className="btn-neon mt-5 h-11 px-7">
             <Link to="/games">
               <Zap className="mr-2 size-4" />
-              Back to the arcade
+              Back to the vault
             </Link>
           </Button>
         </div>
       </main>
 
       <footer className="border-t border-[#b026ff26] py-6 text-center text-xs text-muted-foreground">
-        NeonPlay Arcade — free unblocked games for school. Play responsibly 😉
+        UltraVector — free unblocked games for school. Play responsibly 😉
       </footer>
     </div>
   );
@@ -190,7 +190,7 @@ const PERKS = [
     icon: Heart,
     tone: "text-[#ff2ea6]",
     title: "Favorites",
-    body: "Pin the games you love to the top of your arcade.",
+    body: "Pin the games you love to the top of your vault.",
   },
   {
     icon: Trophy,

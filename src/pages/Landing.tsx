@@ -1,6 +1,7 @@
 import GameTile from "@/components/GameTile";
 import GameLogo from "@/components/GameLogo";
 import NeonHeader from "@/components/NeonHeader";
+import { AdBannerLeaderboard } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES } from "@/lib/games";
@@ -32,7 +33,7 @@ const item: Variants = {
 
 export default function Landing() {
   useEffect(() => {
-    document.title = "NeonPlay Arcade — Unblocked Games for School";
+    document.title = "UltraVector — Unblocked Games for School";
   }, []);
 
   return (
@@ -78,7 +79,7 @@ export default function Landing() {
                 className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground"
               >
                 Slope, Retro Bowl 25, Run 3, Cookie Clicker, Gladihoppers and
-                Eaglercraft — legendary arcade classics, unblocked and running
+                Eaglercraft — legendary classics, unblocked and running
                 instantly in your browser. Built for Chromebooks, school
                 laptops, and boring study halls.
               </motion.p>
@@ -173,6 +174,9 @@ export default function Landing() {
           </div>
         </div>
 
+        {/* Leaderboard — after the marquee */}
+        <AdBannerLeaderboard className="mx-auto max-w-7xl px-4 sm:px-6 my-10" />
+
         {/* ===================== FEATURED GAMES ===================== */}
         <section className="mx-auto w-full max-w-7xl px-4 py-20 sm:px-6">
           <SectionHeading
@@ -200,18 +204,18 @@ export default function Landing() {
           <div className="mt-10 text-center">
             <Button asChild size="lg" variant="ghost" className="btn-ghost-neon h-12 px-8">
               <Link to="/games">
-                Browse the full arcade
+                Browse the full vault
                 <ArrowRight className="ml-2 size-5" />
               </Link>
             </Button>
           </div>
         </section>
 
-        {/* ===================== WHY NEONPLAY ===================== */}
+        {/* ===================== WHY ULTRAVECTOR ===================== */}
         <section className="relative overflow-hidden px-4 py-20 sm:px-6">
           <div className="pointer-events-none absolute left-1/2 top-0 h-px w-2/3 -translate-x-1/2 bg-gradient-to-r from-transparent via-[#00e5ff]/60 to-transparent" />
           <SectionHeading
-            kicker="Why NeonPlay"
+            kicker="Why UltraVector"
             title={
               <>
                 Built to beat{" "}
@@ -344,7 +348,7 @@ export default function Landing() {
               <Button asChild size="lg" className="btn-neon h-12 px-8 text-base">
                 <Link to="/games">
                   <Zap className="mr-2 size-5" />
-                  Enter the arcade
+                  Enter the vault
                 </Link>
               </Button>
               <Button
@@ -372,8 +376,7 @@ export default function Landing() {
                 <Gamepad2 className="size-5 text-[#00e5ff]" />
               </span>
               <span className="font-display text-lg font-bold">
-                <span className="text-rainbow">NeonPlay</span>{" "}
-                <span className="text-foreground/80">Arcade</span>
+                <span className="text-rainbow">UltraVector</span>
               </span>
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
@@ -401,7 +404,7 @@ export default function Landing() {
           </div>
           <div>
             <p className="mb-3 text-xs font-bold uppercase tracking-[0.2em] text-muted-foreground">
-              Arcade
+              Vault
             </p>
             <ul className="space-y-2 text-sm">
               <li>
@@ -432,7 +435,7 @@ export default function Landing() {
           </div>
         </div>
         <div className="mx-auto mt-10 flex max-w-7xl flex-col items-center justify-between gap-3 border-t border-[#b026ff26] pt-6 text-xs text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} NeonPlay Arcade. Free to play, always.</p>
+          <p>© {new Date().getFullYear()} UltraVector. Free to play, always.</p>
           <p>Made with 💜 and questionable amounts of neon.</p>
         </div>
       </footer>
@@ -581,7 +584,7 @@ const STEPS = [
   },
   {
     title: "Go full neon",
-    body: "Smash the fullscreen button for the full arcade experience. Esc pops you back to reality when the bell rings.",
+    body: "Smash the fullscreen button for the full UltraVector experience. Esc pops you back to reality when the bell rings.",
   },
 ];
 
@@ -596,14 +599,14 @@ const STATS = [
 const FAQS = [
   {
     q: "Are these games really unblocked at school?",
-    a: "Games load over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. Our four built-in native games — Slope, Retro Bowl 25, Run 3 and Cookie Clicker — are coded straight into NeonPlay itself and always load. No installs, no VPN, no sign-up required to play.",
+    a: "Games load over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. Our four built-in native games — Slope, Retro Bowl 25, Run 3 and Cookie Clicker — are coded straight into UltraVector itself and always load. No installs, no VPN, no sign-up required to play.",
   },
   {
     q: "Do I need to download or install anything?",
     a: "No. Every game runs directly in your browser — Chrome, Edge, Safari or Firefox — including school Chromebooks.",
   },
   {
-    q: "Is NeonPlay Arcade free?",
+    q: "Is UltraVector free?",
     a: "Yes, completely free. You can create a free account to save favorites and track play stats, but the games themselves never require payment or a sign-up.",
   },
   {

@@ -32,7 +32,7 @@ export default function VoidRunner({ width, height }: NativeGameProps) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("neonplay.best.voidrunner");
+      const raw = localStorage.getItem("ultravector.best.voidrunner");
       if (raw) setBest(parseInt(raw, 10) || 0);
     } catch {
       /* ignore */

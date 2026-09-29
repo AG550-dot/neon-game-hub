@@ -21,14 +21,14 @@ export default function NotFound() {
             This page glitched out of existence
           </h1>
           <p className="mx-auto mt-3 max-w-md text-muted-foreground">
-            The game you're looking for isn't in the arcade — but the good ones
+            The game you're looking for isn't in the vault — but the good ones
             are one click away.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button asChild className="btn-neon h-11 px-7">
               <Link to="/games">
                 <Zap className="mr-2 size-4" />
-                Browse the arcade
+                Browse the vault
               </Link>
             </Button>
             <Button asChild variant="ghost" className="btn-ghost-neon h-11 px-7">

@@ -104,3 +104,145 @@ export function AdBannerSmall({ className = "" }: { className?: string }) {
     </div>
   );
 }
+
+const LEADERBOARD_SRCDOC = `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      atOptions = {
+        'key' : '308649f82cdb0b29c2b0ed201d64dee4',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    <\/script>
+    <script type="text/javascript" src="https://www.highrevenueformat.com/308649f82cdb0b29c2b0ed201d64dee4/invoke.js"><\/script>
+  </body>
+</html>`;
+
+const TOWER_SRCDOC = `<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      html, body { margin: 0; padding: 0; background: transparent; overflow: hidden; }
+    </style>
+  </head>
+  <body>
+    <script type="text/javascript">
+      atOptions = {
+        'key' : 'd7b91bc2d2ee585ebcce8f047190a80d',
+        'format' : 'iframe',
+        'height' : 600,
+        'width' : 160,
+        'params' : {}
+      };
+    <\/script>
+    <script type="text/javascript" src="https://www.highrevenueformat.com/d7b91bc2d2ee585ebcce8f047190a80d/invoke.js"><\/script>
+  </body>
+</html>`;
+
+/**
+ * 728×90 leaderboard banner, same isolated-iframe technique as AdBannerSmall
+ * (the network's invoke.js uses document.write, so it must never touch the
+ * main document). Scales down on narrow screens instead of overflowing.
+ */
+export function AdBannerLeaderboard({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`flex min-h-[104px] max-lg:min-h-[46px] w-full items-center justify-center overflow-hidden ${className}`}
+      aria-hidden="true"
+    >
+      <iframe
+        srcDoc={LEADERBOARD_SRCDOC}
+        title="Advertisement"
+        width={728}
+        height={90}
+        scrolling="no"
+        frameBorder={0}
+        sandbox="allow-scripts allow-popups allow-same-origin"
+        loading="lazy"
+        className="block max-lg:origin-center max-lg:scale-[0.44] shrink-0 bg-transparent"
+      />
+    </div>
+  );
+}
+
+/**
+ * 160×600 skyscraper for wide desktop layouts (hidden below xl). Designed to
+ * sit in a sticky side rail next to long game grids.
+ */
+export function AdBannerTower({ className = "" }: { className?: string }) {
+  return (
+    <div
+      className={`hidden w-[160px] shrink-0 xl:block ${className}`}
+      aria-hidden="true"
+    >
+      <iframe
+        srcDoc={TOWER_SRCDOC}
+        title="Advertisement"
+        width={160}
+        height={600}
+        scrolling="no"
+        frameBorder={0}
+        sandbox="allow-scripts allow-popups allow-same-origin"
+        loading="lazy"
+        className="block bg-transparent"
+      />
+    </div>
+  );
+}
+
+const POPUNDER_SRC =
+  "https://pl31577562.profitableratecpmnetwork.com/32/7a/23/327a235c9d3e07f831e6cc2683d2ac5e.js";
+const POPUNDER_INTERVAL_MS = 60 * 60 * 1000;
+const POPUNDER_KEY = "ultravector.popunder.last";
+
+/**
+ * Site-wide popunder script, triggered at most once per hour per visitor.
+ * Renders nothing — it only mounts the network's script when the hourly
+ * window has elapsed (tracked in localStorage), so casual browsing stays
+ * quiet and returning visitors aren't hammered.
+ */
+export function AdPopunder() {
+  useEffect(() => {
+    let last = 0;
+    try {
+      last = Number(localStorage.getItem(POPUNDER_KEY) || 0);
+    } catch {
+      /* storage unavailable — treat as never fired */
+    }
+    if (
+      Number.isFinite(last) &&
+      last > 0 &&
+      Date.now() - last < POPUNDER_INTERVAL_MS
+    ) {
+      return;
+    }
+
+    const script = document.createElement("script");
+    script.async = true;
+    script.setAttribute("data-cfasync", "false");
+    script.src = POPUNDER_SRC;
+    document.body.appendChild(script);
+
+    try {
+      localStorage.setItem(POPUNDER_KEY, String(Date.now()));
+    } catch {
+      /* ignore */
+    }
+
+    return () => {
+      script.remove();
+    };
+  }, []);
+
+  return null;
+}

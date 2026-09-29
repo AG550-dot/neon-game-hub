@@ -1,6 +1,9 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
-import AdBanner from "@/components/AdBanner";
+import AdBanner, {
+  AdBannerLeaderboard,
+  AdBannerTower,
+} from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,9 +33,9 @@ export default function Games() {
 
   useEffect(() => {
     document.title =
-      "All Unblocked Games — Slope, Retro Bowl, Eaglercraft & More | NeonPlay Arcade";
+      "All Unblocked Games — Slope, Retro Bowl, Eaglercraft & More | UltraVector";
     return () => {
-      document.title = "NeonPlay Arcade — Unblocked Games for School";
+      document.title = "UltraVector — Unblocked Games for School";
     };
   }, []);
 
@@ -82,8 +85,9 @@ export default function Games() {
                 <span className="text-rainbow">All Unblocked Games</span>
               </h1>
               <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-                Every game in the NeonPlay vault — free, instant, and unblocked
-                at school. No downloads, no sign-up wall, just pure play.
+                Every game in the UltraVector vault — free, instant, and
+                unblocked at school. No downloads, no sign-up wall, just pure
+                play.
               </p>
             </motion.div>
           </div>
@@ -136,8 +140,13 @@ export default function Games() {
           </div>
         </section>
 
-        {/* Game grid */}
+        {/* Leaderboard — below search, above results */}
+        <AdBannerLeaderboard className="mx-auto max-w-7xl px-4 sm:px-6" />
+
+        {/* Game grid + side rail */}
         <section className="mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6">
+          <div className="flex items-start gap-6">
+            <div className="min-w-0 flex-1">
           {results.length === 0 ? (
             <div className="neon-card mx-auto max-w-md rounded-2xl p-10 text-center">
               <p className="font-display text-lg font-bold">No games found</p>
@@ -178,6 +187,13 @@ export default function Games() {
               )}
             </>
           )}
+            </div>
+            <aside className="hidden w-[160px] shrink-0 xl:block">
+              <div className="sticky top-20">
+                <AdBannerTower />
+              </div>
+            </aside>
+          </div>
         </section>
 
         {/* SEO copy block */}
@@ -185,7 +201,7 @@ export default function Games() {
           <div className="neon-card rounded-2xl p-6 sm:p-8">
             <h2 className="font-display text-2xl font-bold">
               Why play unblocked games on{" "}
-              <span className="text-rainbow">NeonPlay Arcade?</span>
+              <span className="text-rainbow">UltraVector?</span>
             </h2>
             <div className="mt-5 grid gap-6 md:grid-cols-3">
               <div>
@@ -251,7 +267,7 @@ export default function Games() {
             </Link>{" "}
             or{" "}
             <Link to="/games" className="font-semibold text-[#ff2ea6] hover:underline">
-              browse the whole arcade
+              browse the whole vault
             </Link>
             .
           </p>
@@ -259,7 +275,7 @@ export default function Games() {
       </main>
 
       <footer className="border-t border-[#b026ff26] py-6 text-center text-xs text-muted-foreground">
-        NeonPlay Arcade — free unblocked games for school. Play responsibly 😉
+        UltraVector — free unblocked games for school. Play responsibly 😉
       </footer>
     </div>
   );
@@ -286,14 +302,14 @@ function SearchIcon() {
 const FAQS = [
   {
     q: "Are these games really unblocked at school?",
-    a: "Yes. NeonPlay Arcade runs games over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. No installs, no VPN, no sign-up required to play.",
+    a: "Yes. UltraVector runs games over standard web traffic, so they typically work on school networks where app stores and downloads are blocked. No installs, no VPN, no sign-up required to play.",
   },
   {
     q: "Do I need to download or install anything?",
     a: "No. Every game runs directly in your browser — Chrome, Edge, Safari or Firefox — including school Chromebooks.",
   },
   {
-    q: "Is NeonPlay Arcade free?",
+    q: "Is UltraVector free?",
     a: "Yes, completely free. You can create a free account to save favorites and track play stats, but the games themselves never require payment or a sign-up.",
   },
   {

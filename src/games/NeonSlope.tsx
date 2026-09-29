@@ -55,7 +55,7 @@ export default function NeonSlope({ width, height }: NativeGameProps) {
 
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("neonplay.best.slope");
+      const raw = localStorage.getItem("ultravector.best.slope");
       if (raw) setBest(parseInt(raw, 10) || 0);
     } catch {
       /* storage unavailable */
@@ -66,7 +66,7 @@ export default function NeonSlope({ width, height }: NativeGameProps) {
     if (score > best) {
       setBest(score);
       try {
-        localStorage.setItem("neonplay.best.slope", String(score));
+        localStorage.setItem("ultravector.best.slope", String(score));
       } catch {
         /* storage unavailable */
       }

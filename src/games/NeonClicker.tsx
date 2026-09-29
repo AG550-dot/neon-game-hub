@@ -41,7 +41,7 @@ export default function NeonClicker({ width, height }: NativeGameProps) {
   // persisted state
   useEffect(() => {
     try {
-      const raw = localStorage.getItem("neonplay.clicker.save");
+      const raw = localStorage.getItem("ultravector.clicker.save");
       if (raw) {
         const s = JSON.parse(raw);
         setCookies(s.cookies ?? 0);
@@ -84,7 +84,7 @@ export default function NeonClicker({ width, height }: NativeGameProps) {
     const t = setTimeout(() => {
       try {
         localStorage.setItem(
-          "neonplay.clicker.save",
+          "ultravector.clicker.save",
           JSON.stringify({
             cookies,
             total,
