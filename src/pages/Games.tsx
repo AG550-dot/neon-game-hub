@@ -155,24 +155,26 @@ export default function Games() {
               </Button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {shown.map((game) => (
-                <GameCard key={game.slug} game={game} />
-              ))}
-            </div>
-            {results.length > shown.length && (
-              <div className="mt-10 text-center">
-                <Button
-                  size="lg"
-                  variant="ghost"
-                  className="btn-ghost-neon h-12 px-8"
-                  onClick={() => setVisible((v) => v + 60)}
-                >
-                  Load more games ({results.length - shown.length} left)
-                  <ChevronDown className="ml-2 size-5" />
-                </Button>
+            <>
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                {shown.map((game) => (
+                  <GameCard key={game.slug} game={game} />
+                ))}
               </div>
-            )}
+              {results.length > shown.length && (
+                <div className="mt-10 text-center">
+                  <Button
+                    size="lg"
+                    variant="ghost"
+                    className="btn-ghost-neon h-12 px-8"
+                    onClick={() => setVisible((v) => v + 60)}
+                  >
+                    Load more games ({results.length - shown.length} left)
+                    <ChevronDown className="ml-2 size-5" />
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </section>
 

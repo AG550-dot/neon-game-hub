@@ -4116,7 +4116,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Endless Runner",
     tags: ["Endless","High Scores","Reflex"],
     controls: "Arrows / space — run & jump",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/vector-rush/favicon.ico",
   },
   {
     slug: "tennis-masters",
@@ -4148,7 +4148,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Idle",
     tags: ["Incremental","Chill","Upgrades"],
     controls: "Mouse — click & upgrade",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/idle-success/favicon.ico",
   },
   {
     slug: "ant-art-tycoon",
@@ -4164,7 +4164,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Idle",
     tags: ["Incremental","Chill","Upgrades"],
     controls: "Mouse — click & upgrade",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/ant-art-tycoon/favicon.ico",
   },
   {
     slug: "merge-arena",
@@ -4180,7 +4180,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Idle",
     tags: ["Incremental","Chill","Upgrades"],
     controls: "Mouse — click & upgrade",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/merge-arena/favicon.ico",
   },
   {
     slug: "rowdy-wrestling",
@@ -4212,7 +4212,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Fighting",
     tags: ["Versus","Arcade","Combat"],
     controls: "Arrows / WASD — move & fight",
-    players: "1–2 players",
+    players: "1–2 players",    logo: "https://ubgwtf.gitlab.io/thumb-fighter-christmas/favicon.ico",
   },
   {
     slug: "fortride-open-world",
@@ -4228,7 +4228,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Sandbox",
     tags: ["Creative","Building","Open-Ended"],
     controls: "Mouse + keys — build & explore",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/fortride-open-world/favicon.ico",
   },
   {
     slug: "brain-test-tricky-puzzles",
@@ -4244,7 +4244,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Puzzle",
     tags: ["Logic","Brainy","Levels"],
     controls: "Mouse / arrows — solve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/brain-test-tricky-puzzles/favicon.ico",
   },
   {
     slug: "brain-test-2-tricky-stories",
@@ -4260,7 +4260,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Puzzle",
     tags: ["Logic","Brainy","Levels"],
     controls: "Mouse / arrows — solve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/brain-test-2-tricky-stories/favicon.ico",
   },
   {
     slug: "brain-test-3-tricky-quests",
@@ -4276,7 +4276,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Puzzle",
     tags: ["Logic","Brainy","Levels"],
     controls: "Mouse / arrows — solve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/brain-test-3-tricky-quests/favicon.ico",
   },
   {
     slug: "bob-the-robber",
@@ -4292,7 +4292,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Puzzle",
     tags: ["Logic","Brainy","Levels"],
     controls: "Mouse / arrows — solve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/bob-the-robber/favicon.ico",
   },
   {
     slug: "bob-the-robber-2",
@@ -4308,7 +4308,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Puzzle",
     tags: ["Logic","Brainy","Levels"],
     controls: "Mouse / arrows — solve",
-    players: "1 player",
+    players: "1 player",    logo: "https://bobtherobberunblocked.github.io/2/favicon.ico",
   },
   {
     slug: "bob-the-robber-3",
@@ -4324,7 +4324,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Puzzle",
     tags: ["Logic","Brainy","Levels"],
     controls: "Mouse / arrows — solve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/bob-the-robber-3/favicon.ico",
   },
   {
     slug: "city-rider",
@@ -4340,7 +4340,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Racing",
     tags: ["Speed","Driving","Time Attack"],
     controls: "Arrows / WASD — drive",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/city-rider/favicon.ico",
   },
   {
     slug: "stock-car-hero",
@@ -4356,7 +4356,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Racing",
     tags: ["Speed","Driving","Time Attack"],
     controls: "Arrows / WASD — drive",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/stock-car-hero/favicon.ico",
   },
   {
     slug: "top-speed-3d",
@@ -4372,7 +4372,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Racing",
     tags: ["Speed","Driving","Time Attack"],
     controls: "Arrows / WASD — drive",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/top-speed-3d/favicon.ico",
   },
   {
     slug: "demolition-derby-crash-racing",
@@ -4388,7 +4388,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Racing",
     tags: ["Speed","Driving","Time Attack"],
     controls: "Arrows / WASD — drive",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/demolition-derby-crash-racing/favicon.ico",
   },
   {
     slug: "dino-bros",
@@ -4420,7 +4420,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Shooter",
     tags: ["Action","Aim","Waves"],
     controls: "Mouse — aim, click — shoot",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/mr-bullet-2-online/favicon.ico",
   },
   {
     slug: "mr-bullet-3d",
@@ -4436,7 +4436,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Shooter",
     tags: ["Action","Aim","Waves"],
     controls: "Mouse — aim, click — shoot",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/mr-bullet-3d/favicon.ico",
   },
   {
     slug: "tanko-io",
@@ -4468,7 +4468,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Multiplayer",
     tags: ["Arena","Friends","Competitive"],
     controls: "Arrows / WASD — move & compete",
-    players: "Online multiplayer",
+    players: "Online multiplayer",    logo: "https://ubgwtf.gitlab.io/drift-io/favicon.ico",
   },
   {
     slug: "fish-eat",
@@ -4484,7 +4484,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Multiplayer",
     tags: ["Arena","Friends","Competitive"],
     controls: "Arrows / WASD — move & compete",
-    players: "Online multiplayer",
+    players: "Online multiplayer",    logo: "https://ubgwtf.gitlab.io/fish-eat/favicon.ico",
   },
   {
     slug: "rooftop-snipers-2",
@@ -4500,7 +4500,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Multiplayer",
     tags: ["Arena","Friends","Competitive"],
     controls: "Arrows / WASD — move & compete",
-    players: "1–2 players",
+    players: "1–2 players",    logo: "https://ubgwtf.gitlab.io/rooftop-snipers-2/favicon.ico",
   },
   {
     slug: "12-minibattles",
@@ -4516,7 +4516,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Multiplayer",
     tags: ["Arena","Friends","Competitive"],
     controls: "Arrows / WASD — move & compete",
-    players: "1–2 players",
+    players: "1–2 players",    logo: "https://ubgwtf.gitlab.io/12-minibattles/favicon.ico",
   },
   {
     slug: "duo-survival-3",
@@ -4532,7 +4532,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Multiplayer",
     tags: ["Arena","Friends","Competitive"],
     controls: "Arrows / WASD — move & compete",
-    players: "1–2 players",
+    players: "1–2 players",    logo: "https://ubgwtf.gitlab.io/duo-survival-2/favicon.ico",
   },
   {
     slug: "noob-torch-flip-2d",
@@ -4580,7 +4580,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Ragdoll",
     tags: ["Physics","Funny","Chaos"],
     controls: "Arrows — flail & flop",
-    players: "1 player",
+    players: "1 player",    logo: "https://g2.igroutka.ru/games/164/yCwbR7HOYXQnjiWm/bossy_toss/thumb.png",
   },
   {
     slug: "get-on-top",
@@ -4628,7 +4628,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Rhythm",
     tags: ["Music","Timing","Beat"],
     controls: "Arrow keys / DFJK — hit the beat",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/skibidi-dash/favicon.ico",
   },
   {
     slug: "master-chess",
@@ -4692,7 +4692,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Cooking",
     tags: ["Time Management","Chill","Cute"],
     controls: "Mouse — cook & serve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubg89.github.io/PapasBurgeria/favicon.ico",
   },
   {
     slug: "papas-wingeria",
@@ -4708,7 +4708,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Cooking",
     tags: ["Time Management","Chill","Cute"],
     controls: "Mouse — cook & serve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/papas-pizzeria/favicon.ico",
   },
   {
     slug: "sushi-party-io",
@@ -4724,7 +4724,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Cooking",
     tags: ["Time Management","Chill","Cute"],
     controls: "Mouse — cook & serve",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/sushi-party-io/favicon.ico",
   },
   {
     slug: "papas-bakeria",
@@ -4852,7 +4852,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Horror",
     tags: ["Spooky","Survival","Thrills"],
     controls: "WASD + mouse — explore & survive",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/huggy-wuggy-shooter/favicon.ico",
   },
   {
     slug: "flip-bros",
@@ -4884,7 +4884,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Ragdoll",
     tags: ["Physics","Funny","Chaos"],
     controls: "Arrows — flail & flop",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/draw-crash-race/favicon.ico",
   },
   {
     slug: "boxing-random",
@@ -4900,7 +4900,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Ragdoll",
     tags: ["Physics","Funny","Chaos"],
     controls: "Arrows — flail & flop",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/boxing-random/favicon.ico",
   },
   {
     slug: "awesome-tanks-2",
@@ -4916,7 +4916,7 @@ export const NEW_GAMES: NeonGame[] = [
     genre: "Sandbox",
     tags: ["Creative","Building","Open-Ended"],
     controls: "Mouse + keys — build & explore",
-    players: "1 player",
+    players: "1 player",    logo: "https://ubgwtf.gitlab.io/awesome-tanks-2/favicon.ico",
   },
   {
     slug: "geometry-dash-subzero",
