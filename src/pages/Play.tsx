@@ -5,6 +5,8 @@ import AdBanner, {
   AdBannerSmall,
   AdBannerTower,
 } from "@/components/AdBanner";
+import GameLeaderboard from "@/components/GameLeaderboard";
+import { useReportScore } from "@/hooks/use-report-score";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES, getGame } from "@/lib/games";
@@ -35,6 +37,7 @@ export default function Play() {
   const [fsActive, setFsActive] = useState(false);
   const [hostedLoaded, setHostedLoaded] = useState(false);
   const [hostedKey, setHostedKey] = useState(0);
+  const report = useReportScore(game?.slug ?? "");
 
   // When switching games, pick the best default mode for that game
   useEffect(() => {
@@ -191,7 +194,7 @@ export default function Play() {
                 >
                   {Native ? (
                     <div ref={stageRef} className="absolute inset-0">
-                      <Native width={size.w} height={size.h} />
+                      <Native width={size.w} height={size.h} report={report} />
                     </div>
                   ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-muted-foreground">
@@ -313,6 +316,9 @@ export default function Play() {
             Chromebooks and school laptops.
           </p>
         </section>
+
+        {/* Per-game leaderboard */}
+        <GameLeaderboard gameSlug={game.slug} className="mt-6" />
 
         {/* Ad banner #2 — 320×50, isolated iframe */}
         <AdBannerSmall className="mt-6" />

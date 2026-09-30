@@ -9,9 +9,10 @@ const FIELD_W = 100; // abstract units
 const H = 60;
 
 /** Built-in "Pixel Bowl": retro football passing game. */
-export default function PixelBowl({ width, height }: NativeGameProps) {
+export default function PixelBowl({ width, height, report }: NativeGameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [score, setScore] = useState(0);
+  const scoreRef = useRef(0);
   const [best, setBest] = useState(0);
   const [down, setDown] = useState(1);
   const [msg, setMsg] = useState("1st & 10 — drag to throw!");
@@ -67,6 +68,7 @@ export default function PixelBowl({ width, height }: NativeGameProps) {
   );
 
   const startDrive = useCallback(() => {
+    scoreRef.current = 0;
     setScore(0);
     newDown(1, 12);
   }, [newDown]);
@@ -118,16 +120,20 @@ export default function PixelBowl({ width, height }: NativeGameProps) {
               (d) =>
                 Math.hypot(d.x - ball.current.tx, d.y - ball.current.ty) < 5.5,
             );
-            if (caught) {
+              if (caught) {
               setMsg("INTERCEPTED!");
               phase.current = "result";
               resultTimer.current = 1.4;
-              setTimeout(() => startDrive(), 1500);
+              setTimeout(() => {
+                report?.(scoreRef.current);
+                startDrive();
+              }, 1500);
             } else {
               const gained = ball.current.tx - ballSpot.current;
               ballSpot.current = ball.current.tx;
               if (ballSpot.current >= markerX.current) {
-                setScore((s) => s + 7);
+                scoreRef.current += 7;
+                setScore(scoreRef.current);
                 setMsg("TOUCHDOWN! +7");
                 phase.current = "result";
                 resultTimer.current = 1.4;
@@ -142,7 +148,10 @@ export default function PixelBowl({ width, height }: NativeGameProps) {
                 if (nd > 4) {
                   setMsg("TURNOVER ON DOWNS");
                   phase.current = "result";
-                  setTimeout(() => startDrive(), 1500);
+                  setTimeout(() => {
+                    report?.(scoreRef.current);
+                    startDrive();
+                  }, 1500);
                 } else {
                   newDown(nd, ballSpot.current);
                 }

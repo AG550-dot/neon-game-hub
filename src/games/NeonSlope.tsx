@@ -23,7 +23,7 @@ type SlopeWorld = {
 };
 
 /** Built-in "Slope": perspective endless slope with neon obstacles. */
-export default function NeonSlope({ width, height }: NativeGameProps) {
+export default function NeonSlope({ width, height, report }: NativeGameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(0);
@@ -100,7 +100,8 @@ export default function NeonSlope({ width, height }: NativeGameProps) {
     world.current.dead = true;
     setDead(true);
     setRunning(false);
-  }, []);
+    report?.(Math.floor(world.current.z));
+  }, [report]);
 
   useAnimationFrame(
     useCallback(

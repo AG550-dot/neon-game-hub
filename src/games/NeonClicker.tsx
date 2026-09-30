@@ -26,7 +26,7 @@ const UPGRADES = [
 ];
 
 /** Built-in "Neon Clicker": idle/incremental neon cookie-style game. */
-export default function NeonClicker({ width, height }: NativeGameProps) {
+export default function NeonClicker({ width, height, report }: NativeGameProps) {
   const [cookies, setCookies] = useState(0);
   const [total, setTotal] = useState(0);
   const [buildings, setBuildings] = useState<Building[]>(
@@ -101,6 +101,16 @@ export default function NeonClicker({ width, height }: NativeGameProps) {
     }, 500);
     return () => clearTimeout(t);
   }, [cookies, total, buildings, upgrades, perClick]);
+
+  // Push lifetime orbs to the global leaderboard at most every 30 seconds
+  const lastReport = useRef(0);
+  useEffect(() => {
+    const now = Date.now();
+    if (total > 0 && now - lastReport.current > 30_000) {
+      lastReport.current = now;
+      report?.(Math.floor(total));
+    }
+  }, [total, report]);
 
   const cost = (b: Building) =>
     Math.floor(b.baseCost * Math.pow(1.15, b.count));

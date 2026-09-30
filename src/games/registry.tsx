@@ -1,9 +1,11 @@
 import { lazy } from "react";
 
-/** A built-in game component receives a bounded container size and must fill it. */
+/** A built-in game component receives a bounded container size and must fill it.
+ *  `report` (optional) submits the player's score to the global leaderboard. */
 export type NativeGameProps = {
   width: number;
   height: number;
+  report?: (score: number) => void;
 };
 
 const NeonSlope = lazy(() => import("./NeonSlope"));

@@ -13,7 +13,7 @@ type Phase = "ready" | "run" | "dead";
  * floor tiles crumble behind you; jump gaps; fall into the void = death.
  * The tunnel slowly rotates as distance grows (the classic Run 3 feel).
  */
-export default function VoidRunner({ width, height }: NativeGameProps) {
+export default function VoidRunner({ width, height, report }: NativeGameProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [score, setScore] = useState(0);
   const [best, setBest] = useState(0);
@@ -138,6 +138,7 @@ export default function VoidRunner({ width, height }: NativeGameProps) {
           if (!tile || !tile.alive) {
             if (g.onGround) {
               setPhase("dead");
+              report?.(Math.floor(g.dist * 2));
             }
           }
         }
@@ -234,7 +235,7 @@ export default function VoidRunner({ width, height }: NativeGameProps) {
           ctx.fillRect(0, 0, w, h);
         }
       },
-      [best, phase],
+      [best, phase, report],
     ),
     phase === "dead",
   );

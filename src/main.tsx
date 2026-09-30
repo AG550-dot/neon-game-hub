@@ -1,11 +1,14 @@
 import { Toaster } from "@/components/ui/sonner";
 import { RequireAuth } from "@/components/RequireAuth";
 import { AdPopunder } from "@/components/AdBanner";
+import GlobalChat from "@/components/GlobalChat";
+import { api } from "@/convex/_generated/api";
 import { VlyToolbar } from "../vly-toolbar-readonly.tsx";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
 import { ConvexReactClient } from "convex/react";
 import React, { StrictMode, useEffect, lazy, Suspense } from "react";
 import { createRoot } from "react-dom/client";
+import { useAction } from "convex/react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import "./index.css";
 
@@ -17,6 +20,7 @@ const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const Games = lazy(() => import("./pages/Games.tsx"));
 const Play = lazy(() => import("./pages/Play.tsx"));
 const Genre = lazy(() => import("./pages/Genre.tsx"));
+const Admin = lazy(() => import("./pages/Admin.tsx"));
 
 // Simple loading fallback for route transitions
 function RouteLoading() {
@@ -85,6 +89,17 @@ class RootErrorBoundary extends React.Component<
 
 const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
 
+/** Creates (or repairs) the site owner's admin account once per app load. */
+function AdminBootstrapper() {
+  const ensureAdmin = useAction(api.admin.ensureAdmin);
+  useEffect(() => {
+    ensureAdmin({}).catch(() => {
+      /* offline / backend hiccup — retried next load */
+    });
+  }, [ensureAdmin]);
+  return null;
+}
+
 
 
 function RouteSyncer() {
@@ -120,6 +135,7 @@ createRoot(document.getElementById("root")!).render(
       <ConvexAuthProvider client={convex}>
         <BrowserRouter>
           <RouteSyncer />
+          <AdminBootstrapper />
           <AdPopunder />
           <Suspense fallback={<RouteLoading />}>
             <Routes>
@@ -139,10 +155,19 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/games" element={<Games />} />
               <Route path="/genre/:genre" element={<Genre />} />
               <Route path="/play/:slug" element={<Play />} />
+              <Route
+                path="/admin"
+                element={
+                  <RequireAuth>
+                    <Admin />
+                  </RequireAuth>
+                }
+              />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
         </BrowserRouter>
+        <GlobalChat />
         <Toaster />
       </ConvexAuthProvider>
     </RootErrorBoundary>
