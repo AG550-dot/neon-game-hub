@@ -1,8 +1,10 @@
 import { vlyPlugin } from "@vly-ai/integrations";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import { writeFileSync } from "node:fs";
 import path from "path";
-import { defineConfig } from "vite";
+import { defineConfig, type Plugin } from "vite";
+import { GAMES, GENRES } from "./src/lib/games";
 
 // GitHub Pages (or any static host) support:
 //   PAGES_BASE=/repo/ bun run build:pages
@@ -13,12 +15,65 @@ import { defineConfig } from "vite";
 const pagesBase = process.env.PAGES_BASE;
 const vlyEnabled = process.env.DISABLE_VLY_PLUGIN !== "1";
 
+/**
+ * Generates dist/sitemap.xml and dist/robots.txt at build time from the live
+ * catalog, using SITE_URL (the site's final public URL, no trailing slash).
+ * Defaults to https://ultravector.gg — override it for github.io or other
+ * deployments so search engines index the right absolute URLs.
+ */
+function seoFilesPlugin(): Plugin {
+  const site = (process.env.SITE_URL || "https://ultravector.gg").replace(
+    /\/+$/,
+    "",
+  );
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [
+    { path: "/", priority: "1.0", freq: "daily" },
+    { path: "/games", priority: "0.9", freq: "daily" },
+    {
+      path: "/two-player-games",
+      priority: "0.9",
+      freq: "daily",
+    },
+    ...GENRES.map((g) => ({
+      path: `/genre/${encodeURIComponent(g.toLowerCase())}`,
+      priority: "0.8",
+      freq: "weekly",
+    })),
+    ...GAMES.map((g) => ({
+      path: `/play/${g.slug}`,
+      priority: "0.7",
+      freq: "weekly",
+    })),
+  ];
+  const xml =
+    `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    urls
+      .map(
+        ({ path: p, priority, freq }) =>
+          `  <url>\n    <loc>${site}${p === "/" ? "/" : p}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${freq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`,
+      )
+      .join("\n") +
+    `\n</urlset>\n`;
+  return {
+    name: "ultravector-seo-files",
+    apply: "build",
+    closeBundle() {
+      writeFileSync(path.resolve(__dirname, "dist", "sitemap.xml"), xml);
+      writeFileSync(
+        path.resolve(__dirname, "dist", "robots.txt"),
+        `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`,
+      );
+    },
+  };
+}
+
 // https://vite.dev/config/
 export default defineConfig({
   base: pagesBase || "/",
   plugins: vlyEnabled
-    ? [react(), vlyPlugin(), tailwindcss()]
-    : [react(), tailwindcss()],
+    ? [react(), vlyPlugin(), tailwindcss(), seoFilesPlugin()]
+    : [react(), tailwindcss(), seoFilesPlugin()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

@@ -25,13 +25,14 @@ Your site goes live at `https://<user>.github.io/<repo>/` (or
 | Deep links (`/games`, `/play/slope`) | `404.html` SPA fallback (hop 1) + `index.html` script (hop 2) |
 | Jekyll interference | `.nojekyll` copied into `dist/` |
 | Convex URL | Injected at build time from the `VITE_CONVEX_URL` secret (falls back to the bundled URL if unset) |
-| Sitemap/robots | Still point at `ultravector.gg` — swap the domain if deploying elsewhere (see notes) |
+| Sitemap/robots | Auto-generated at build time from the live catalog, using the detected site URL (or a `SITE_URL` secret for custom domains) |
 | Vly preview toolbar | Excluded from Pages builds (`DISABLE_VLY_PLUGIN=1`), auto-enabled again in dev |
 
 ## 3. Manual deploy (no Actions)
 
 ```bash
 PAGES_BASE=/your-repo-name/ DISABLE_VLY_PLUGIN=1 \
+SITE_URL=https://your-final-domain.com \
 VITE_CONVEX_URL=https://dynamic-alligator-520.convex.cloud \
 bun run build:pages
 cp dist/index.html dist/404.html
@@ -44,10 +45,10 @@ npx gh-pages -d dist
 
 - **Sign-in and chat need Convex** — make sure the secret is set, otherwise
   auth/chat will fail while the public game pages still work.
-- **`sitemap.xml` / `robots.txt`** point at `https://ultravector.gg/` — if you
-  deploy to a `github.io` address instead of a custom domain, replace those
-  URLs with your live one (sitemaps require absolute URLs, so they can't be
-  made path-relative like the app assets).
+- **`sitemap.xml` / `robots.txt`** are generated during the build from the
+  live game catalog (≈390 URLs) with the correct absolute URLs for your
+  deployment — nothing to hand-edit. On a custom domain, add a `SITE_URL`
+  secret (e.g. `https://ultravector.gg`) and the workflow uses it.
 - Admin account bootstrap (`ensureAdmin`) runs from any client, so the first
   visitor after deploy repairs the admin account if needed.
 - The dev preview on Freebuff is unaffected: `bun run dev` and the default

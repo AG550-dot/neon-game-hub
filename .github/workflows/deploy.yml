@@ -40,11 +40,27 @@ jobs:
             echo "base=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Detect site URL (for sitemap/robots)
+        id: siteurl
+        run: |
+          OWNER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          REPO="${{ github.event.repository.name }}"
+          if [[ -n "${{ secrets.SITE_URL }}" ]]; then
+            # Custom domain — add a SITE_URL repository secret
+            echo "url=${{ secrets.SITE_URL }}" >> "$GITHUB_OUTPUT"
+          elif [[ "$REPO" == *.github.io ]]; then
+            echo "url=https://$OWNER.github.io" >> "$GITHUB_OUTPUT"
+          else
+            echo "url=https://$OWNER.github.io/$REPO" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build
         run: bun run build:pages
         env:
           # Tells Vite + the router the public path of the app
           PAGES_BASE: ${{ steps.base.outputs.base }}
+          # Final public URL — used for sitemap.xml / robots.txt / canonicals
+          SITE_URL: ${{ steps.siteurl.outputs.url }}
           # Paste your Convex deployment URL here, or add it as a repository
           # secret (Settings → Secrets and variables → Actions → VITE_CONVEX_URL)
           VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
