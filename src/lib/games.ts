@@ -32,6 +32,19 @@ export function getGenreStats(): { genre: Genre; count: number }[] {
     .sort((a, b) => b.count - a.count);
 }
 
+/**
+ * Games you can play with a friend on one device (local co-op) plus online
+ * multiplayer arenas — the "2 player games" shelf.
+ */
+export function getTwoPlayerGames(): NeonGame[] {
+  return GAMES.filter(
+    (g) =>
+      g.players.includes("2") ||
+      g.players.toLowerCase().includes("multiplayer") ||
+      g.genre === "Multiplayer",
+  ).sort((a, b) => a.title.localeCompare(b.title));
+}
+
 /** Case-insensitive text search across title, tagline, genre and tags. */
 export function searchGames(query: string): NeonGame[] {
   const q = query.trim().toLowerCase();

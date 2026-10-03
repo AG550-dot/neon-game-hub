@@ -10,7 +10,7 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { Loader2, Lock } from "lucide-react";
 import type { ReactNode } from "react";
-import { Navigate, useLocation, useNavigate, useSearchParams } from "react-router";
+import { Navigate, useLocation, useNavigate } from "react-router";
 import { Suspense } from "react";
 
 /**
@@ -57,7 +57,6 @@ function RequireAuthInner({ children, title, description, redirectImmediately }:
   const { isLoading, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [, setSearchParams] = useSearchParams();
 
   if (isLoading) {
     return (
@@ -70,7 +69,6 @@ function RequireAuthInner({ children, title, description, redirectImmediately }:
   if (!isAuthenticated) {
     const returnTo = `${location.pathname}${location.search}`;
     const signInHref = `/auth?returnTo=${encodeURIComponent(returnTo)}`;
-    setSearchParams({});
 
 
     if (redirectImmediately) {

@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES } from "@/lib/games";
 import { motion, type Variants } from "framer-motion";
-import { ArrowRight, ChevronDown, Chrome, Gamepad2, Gift, Lock, MonitorSmartphone, ShieldCheck, Sparkles, Star, Zap } from "lucide-react";
+import { ArrowRight, ChevronDown, Chrome, Gamepad2, Ghost, Gift, Lock, MonitorSmartphone, ShieldCheck, Sparkles, Star, Swords, Users, Zap } from "lucide-react";
 import { useEffect, Suspense } from "react";
 import { Link } from "react-router";
 
@@ -21,7 +21,8 @@ const item: Variants = {
 
 function LandingInner() {
   useEffect(() => {
-    document.title = "UltraVector — Unblocked Games for School";
+    document.title =
+      "Unblocked Games for School — Horror, Action & 2 Player Games | UltraVector";
   }, []);
 
   return (
@@ -57,19 +58,19 @@ function LandingInner() {
                 variants={item}
                 className="max-w-4xl font-display text-5xl font-extrabold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl"
               >
-                Play the best{" "}
+                All the best{" "}
                 <span className="text-rainbow glow-text">unblocked games</span>
-                <br className="hidden sm:block" /> at school
+                <br className="hidden sm:block" /> — horror, action & 2 player
               </motion.h1>
 
               <motion.p
                 variants={item}
                 className="mt-6 max-w-2xl text-lg leading-relaxed text-muted-foreground"
               >
-                Slope, Retro Bowl 25, Run 3, Cookie Clicker, Gladihoppers and
-                Eaglercraft — legendary classics, unblocked and running
-                instantly in your browser. Built for Chromebooks, school
-                laptops, and boring study halls.
+                Slope, Retro Bowl 25, Run 3, Eaglercraft, FNAF horror games,
+                action shooters and 2 player duels — every legendary classic
+                unblocked and running instantly in your browser. Built for
+                Chromebooks, school laptops, and boring study halls.
               </motion.p>
 
               <motion.div
@@ -144,13 +145,13 @@ function LandingInner() {
                   "SLOPE",
                   "RETRO BOWL 25",
                   "RUN 3",
-                  "COOKIE CLICKER",
-                  "GLADIHOPPERS",
+                  "HORROR GAMES",
+                  "ACTION GAMES",
+                  "2 PLAYER GAMES",
                   "EAGLECRAFT",
                   "UNBLOCKED AT SCHOOL",
                   "NO DOWNLOADS",
                   "FREE FOREVER",
-                  "CHROMEBOOK READY",
                 ].map((text) => (
                   <span
                     key={`${copy}-${text}`}
@@ -176,6 +177,67 @@ function LandingInner() {
             }
             sub="Four icons. Zero downloads. Each one a certified school-day classic — pick your poison."
           />
+
+          {/* Keyword collections — horror / action / 2 player */}
+          <div className="mt-10 grid gap-5 md:grid-cols-3">
+            <Link
+              to="/genre/horror"
+              className="neon-card group rounded-2xl p-6 transition-transform hover:-translate-y-1"
+            >
+              <span className="mb-3 flex size-11 items-center justify-center rounded-xl border border-[#ff2ea655] bg-[#ff2ea61a] text-[#ff2ea6]">
+                <Ghost className="size-5" />
+              </span>
+              <h3 className="font-display text-lg font-bold">
+                <span className="text-rainbow">Horror games</span> unblocked
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                All the scary classics — FNAF, Poppy Glamrock, Escape From
+                School, Level Devil. Headphones on, lights off.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-[#ff2ea6]">
+                Enter if you dare
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+            <Link
+              to="/genre/shooter"
+              className="neon-card group rounded-2xl p-6 transition-transform hover:-translate-y-1"
+            >
+              <span className="mb-3 flex size-11 items-center justify-center rounded-xl border border-[#ffe14d55] bg-[#ffe14d1a] text-[#ffe14d]">
+                <Swords className="size-5" />
+              </span>
+              <h3 className="font-display text-lg font-bold">
+                <span className="text-rainbow">Action games</span> unblocked
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Shooters, brawlers, stickman warfare and tank chaos — pure
+                adrenaline that loads in seconds at school.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-[#ffe14d]">
+                Lock and load
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+            <Link
+              to="/two-player-games"
+              className="neon-card group rounded-2xl p-6 transition-transform hover:-translate-y-1"
+            >
+              <span className="mb-3 flex size-11 items-center justify-center rounded-xl border border-[#00e5ff55] bg-[#00e5ff1a] text-[#00e5ff]">
+                <Users className="size-5" />
+              </span>
+              <h3 className="font-display text-lg font-bold">
+                <span className="text-rainbow">2 player games</span> unblocked
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                Basketball Stars, Get On Top, Fireboy & Watergirl — one
+                keyboard, two players, endless trash talk.
+              </p>
+              <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-[#00e5ff]">
+                Grab a friend
+                <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </Link>
+          </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {GAMES.slice(0, 4).map((game, i) => (
               <motion.div
@@ -405,6 +467,30 @@ function LandingInner() {
               </li>
               <li>
                 <Link
+                  to="/two-player-games"
+                  className="text-muted-foreground transition-colors hover:text-[#00e5ff]"
+                >
+                  2 Player games
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/genre/horror"
+                  className="text-muted-foreground transition-colors hover:text-[#00e5ff]"
+                >
+                  Horror games unblocked
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/genre/shooter"
+                  className="text-muted-foreground transition-colors hover:text-[#00e5ff]"
+                >
+                  Action games unblocked
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/auth"
                   className="text-muted-foreground transition-colors hover:text-[#00e5ff]"
                 >
@@ -600,6 +686,14 @@ const FAQS = [
   {
     q: "Can I play on a Chromebook or school laptop?",
     a: "Absolutely. The whole arcade is built for Chromebooks — instant loading, keyboard controls, and a fullscreen mode for every game.",
+  },
+  {
+    q: "Are there 2 player games I can play with a friend at school?",
+    a: "Yes — check the 2 player games collection. Basketball Stars, Get On Top, Fireboy and Watergirl, Gun Mayhem and more all run on one keyboard, plus online multiplayer arenas like 1v1.LOL and Shell Shockers if you're on different computers.",
+  },
+  {
+    q: "Do you have all the horror games unblocked?",
+    a: "The horror shelf is packed: FNAF Shooter, Poppy Glamrock, Escape From School, Level Devil 1 & 2 and more scary games — all unblocked, free, and playable straight in the browser.",
   },
 ];
 

@@ -32,7 +32,7 @@ const GENRE_META: Record<string, { blurb: string; seo: string }> = {
   },
   Fighting: {
     blurb: "Physics, fury and floppy limbs. Settle it in the arena.",
-    seo: "2 player fighting games unblocked",
+    seo: "2 player fighting games unblocked — get-on-top, gun mayhem & more",
   },
   Sandbox: {
     blurb: "Infinite worlds, zero limits. Mine, build, survive.",
@@ -52,7 +52,7 @@ const GENRE_META: Record<string, { blurb: string; seo: string }> = {
   },
   Shooter: {
     blurb: "Lock, load, build. Precision chaos in every round.",
-    seo: "unblocked shooter games for school",
+    seo: "unblocked action games & shooter games for school",
   },
   Multiplayer: {
     blurb: "Live arenas packed with real rivals. No bots allowed.",
@@ -76,7 +76,34 @@ const GENRE_META: Record<string, { blurb: string; seo: string }> = {
   },
   Horror: {
     blurb: "Headphones on. Lights off. Good luck.",
-    seo: "horror games unblocked online",
+    seo: "all horror games unblocked — FNAF, Poppy, Granny & more scary games",
+  },
+};
+
+/**
+ * Extra SEO paragraphs for the highest-value genre pages. Rendered under the
+ * game grid as keyword-rich, human-readable copy.
+ */
+const GENRE_SEO_COPY: Record<string, { heading: string; body: string }> = {
+  Horror: {
+    heading: "All horror games unblocked — free scary games for school",
+    body: "Welcome to the darkest shelf in the vault. Every horror game here is unblocked, free and playable instantly in your browser — FNAF Shooter, Poppy Glamrock, Escape From School, Level Devil 1 & 2 and more scary games added all the time. No downloads, no sign-up, no keys under the door: just you, a Chromebook, and whatever is making that noise behind you. Play with headphones on if you dare — and don't blame us when the bell makes you jump.",
+  },
+  Shooter: {
+    heading: "Unblocked action games — shooters, brawlers & battle arenas",
+    body: "This is the action games wing of UltraVector: fast, loud and 100% unblocked at school. Pick a shooter like FNAF Shooter or an online arena battle, lock and load, and prove your aim — all free in the browser with no downloads or installs. Every game runs on school Chromebooks and laptops, so the only thing standing between you and victory is study hall.",
+  },
+  Fighting: {
+    heading: "2 player fighting games unblocked — one keyboard, two champions",
+    body: "Nothing settles a rivalry like a physics duel. These 2 player fighting games run on a single keyboard, so you and a friend can throw down at the same computer — Get On Top, stickman brawlers, gladiator chaos and more, all unblocked and free. Winner keeps the crown, loser buys the snacks.",
+  },
+  Sports: {
+    heading: "Unblocked sports games — including 2 player classics",
+    body: "From Retro Bowl 25 to Basketball Stars, the sports shelf is where champions are made. Many titles are full 2 player games — grab a friend, share a keyboard, and dunk, pass and score your way to glory. All unblocked, all free, all instant in your browser.",
+  },
+  Multiplayer: {
+    heading: "Free multiplayer & 2 player games unblocked",
+    body: "Real rivals, real arenas. These multiplayer games pit you against live opponents in .io battles, 1v1 duels and co-op challenges — unblocked at school and free forever. Play on one keyboard with a friend or hop into an online match from any Chromebook.",
   },
 };
 
@@ -89,7 +116,15 @@ function GenreInner() {
 
   useEffect(() => {
     if (exists) {
-      document.title = `${genre} Games Unblocked — Free & Instant | UltraVector`;
+      const keyword =
+        genre === "Horror"
+          ? "All Horror Games Unblocked"
+          : genre === "Shooter"
+            ? "Action & Shooter Games Unblocked"
+            : genre === "Fighting"
+              ? "2 Player Fighting Games Unblocked"
+              : `${genre} Games Unblocked`;
+      document.title = `${keyword} — Free & Instant | UltraVector`;
     }
     return () => {
       document.title = "UltraVector — Unblocked Games for School";
@@ -171,16 +206,17 @@ function GenreInner() {
         <section className="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">
           <div className="neon-card rounded-2xl p-6">
             <h2 className="font-display text-xl font-bold">
-              Free online{" "}
-              <span className="text-rainbow">{genre.toLowerCase()} games</span>{" "}
-              for school
+              {GENRE_SEO_COPY[genre]?.heading ?? (
+                <>
+                  Free online{" "}
+                  <span className="text-rainbow">{genre.toLowerCase()} games</span>{" "}
+                  for school
+                </>
+              )}
             </h2>
             <p className="mt-3 leading-relaxed text-muted-foreground">
-              Every {genre.toLowerCase()} game in the UltraVector vault, playable
-              free in your browser — no downloads, no sign-up, no installs.
-              These {meta?.seo ?? "unblocked games"} work on school Chromebooks
-              and laptops, loading instantly with fullscreen support. Pick a
-              game and hit play — the vault is open.
+              {GENRE_SEO_COPY[genre]?.body ??
+                `Every ${genre.toLowerCase()} game in the UltraVector vault, playable free in your browser — no downloads, no sign-up, no installs. These ${meta?.seo ?? "unblocked games"} work on school Chromebooks and laptops, loading instantly with fullscreen support. Pick a game and hit play — the vault is open.`}
             </p>
           </div>
         </section>

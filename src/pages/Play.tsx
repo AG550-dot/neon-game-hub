@@ -36,7 +36,7 @@ function PlayInner() {
     setHostedLoaded(false);
     setHostedKey((k) => k + 1);
     if (game) {
-      document.title = `${game.title} — Unblocked & Free | UltraVector`;
+      document.title = `${game.title} — Play Unblocked | Free ${game.genre} Game | UltraVector`;
     }
     return () => {
       document.title = "UltraVector — Unblocked Games for School";
@@ -297,10 +297,11 @@ function PlayInner() {
             </p>
             <p className="mt-3 max-w-3xl leading-relaxed text-muted-foreground">
               Looking for {game.title.toLowerCase()} unblocked at school?
-              UltraVector includes it built-in — playable instantly in your
-              browser,
-              free, with no downloads and no sign-up required. Works great on
-              Chromebooks and school laptops.
+              It&apos;s right here — playable instantly in your browser, free,
+              with no downloads and no sign-up required. Works great on
+              Chromebooks and school laptops. Fans of unblocked{" "}
+              {game.genre.toLowerCase()} games usually also love our horror,
+              action and 2 player games collections — all free to play.
             </p>
           </section>
 

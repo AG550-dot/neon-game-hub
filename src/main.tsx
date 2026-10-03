@@ -20,6 +20,7 @@ const NotFound = lazy(() => import("./pages/NotFound.tsx"));
 const Games = lazy(() => import("./pages/Games.tsx"));
 const Play = lazy(() => import("./pages/Play.tsx"));
 const Genre = lazy(() => import("./pages/Genre.tsx"));
+const TwoPlayerGames = lazy(() => import("./pages/TwoPlayerGames.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
 
 // Simple loading fallback for route transitions
@@ -154,6 +155,7 @@ createRoot(document.getElementById("root")!).render(
               />
               <Route path="/games" element={<Games />} />
               <Route path="/genre/:genre" element={<Genre />} />
+              <Route path="/two-player-games" element={<TwoPlayerGames />} />
               <Route path="/play/:slug" element={<Play />} />
               <Route
                 path="/admin"
@@ -166,9 +168,9 @@ createRoot(document.getElementById("root")!).render(
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>
+          <GlobalChat />
+          <Toaster />
         </BrowserRouter>
-        <GlobalChat />
-        <Toaster />
       </ConvexAuthProvider>
     </RootErrorBoundary>
   </StrictMode>,

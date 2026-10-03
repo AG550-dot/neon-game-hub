@@ -191,6 +191,12 @@ function NeonHeaderInner() {
               ))}
               <div className="mt-1 border-t border-[#b026ff26] pt-2">
                 <Link
+                  to="/two-player-games"
+                  className="block rounded-lg px-3 py-2 text-sm font-bold text-[#ff2ea6] transition-colors hover:bg-[#ff2ea614]"
+                >
+                  2 Player games →
+                </Link>
+                <Link
                   to="/games"
                   className="block rounded-lg px-3 py-2 text-sm font-bold text-[#00e5ff] transition-colors hover:bg-[#00e5ff14]"
                 >
@@ -295,6 +301,31 @@ function NeonHeaderInner() {
                 <span className="ml-1.5 text-[10px] text-[#9bf3ff]">{count}</span>
               </Link>
             ))}
+          </div>
+
+          {/* Quick collections */}
+          <p className="mb-2 mt-5 px-1 text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground/70">
+            Collections
+          </p>
+          <div className="flex flex-wrap gap-2">
+            <Link
+              to="/two-player-games"
+              className="rounded-full border border-[#00e5ff4d] px-3 py-1.5 text-xs font-bold text-[#9bf3ff] transition-colors hover:border-[#00e5ff80] hover:text-foreground"
+            >
+              2 Player games
+            </Link>
+            <Link
+              to="/genre/horror"
+              className="rounded-full border border-[#ff2ea64d] px-3 py-1.5 text-xs font-bold text-[#ff9de0] transition-colors hover:border-[#ff2ea680] hover:text-foreground"
+            >
+              Horror games
+            </Link>
+            <Link
+              to="/genre/shooter"
+              className="rounded-full border border-[#ffe14d4d] px-3 py-1.5 text-xs font-bold text-[#ffe14d] transition-colors hover:border-[#ffe14d80] hover:text-foreground"
+            >
+              Action games
+            </Link>
           </div>
 
           {/* All games */}

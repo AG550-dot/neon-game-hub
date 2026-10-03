@@ -26,7 +26,7 @@ function GamesInner() {
 
   useEffect(() => {
     document.title =
-      "All Unblocked Games — Slope, Retro Bowl, Eaglercraft & More | UltraVector";
+      "All Unblocked Games — Horror, Action, 2 Player & More | UltraVector";
     return () => {
       document.title = "UltraVector — Unblocked Games for School";
     };
@@ -78,9 +78,9 @@ function GamesInner() {
                 <span className="text-rainbow">All Unblocked Games</span>
               </h1>
               <p className="mx-auto mt-3 max-w-2xl text-muted-foreground">
-                Every game in the UltraVector vault — free, instant, and
-                unblocked at school. No downloads, no sign-up wall, just pure
-                play.
+                Horror games, action games, 2 player games, racing, puzzle and
+                more — every title in the vault is free, instant, and unblocked
+                at school. No downloads, no sign-up wall, just pure play.
               </p>
             </motion.div>
           </div>
@@ -226,12 +226,12 @@ function GamesInner() {
               </div>
               <div>
                 <h3 className="flex items-center gap-2 font-display text-base font-bold text-[#3dff8b]">
-                  <Gamepad2 className="size-4" /> Curated classics
+                  <Gamepad2 className="size-4" /> Every genre covered
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Slope, Eaglercraft, Pac-Man, Retro Bowl and more — proven
-                  legends with millions of fans. We only list games worth your
-                  free period.
+                  All the horror games, action games and 2 player games you
+                  know — Slope, Eaglercraft, FNAF, Basketball Stars and
+                  hundreds more. We only list games worth your free period.
                 </p>
               </div>
             </div>
@@ -315,6 +315,10 @@ const FAQS = [
   {
     q: "Can I play on a Chromebook or school laptop?",
     a: "Absolutely. The whole arcade is built for Chromebooks — instant loading, keyboard controls, and a fullscreen mode for every game.",
+  },
+  {
+    q: "Where are the horror games and 2 player games?",
+    a: "Horror games live in their own shelf — FNAF, Poppy Glamrock, Level Devil and more. The 2 player games collection gathers every title you can play with a friend on one keyboard, from Basketball Stars to Gun Mayhem.",
   },
 ];
 
