@@ -4,9 +4,21 @@ import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vite";
 
+// GitHub Pages (or any static host) support:
+//   PAGES_BASE=/repo/ bun run build:pages
+//   → assets and the router are prefixed with /repo/ so the app works on a
+//   project site like https://user.github.io/repo/
+// Leave PAGES_BASE unset for root deployments (user site, custom domain).
+// The default `bun run build` behaves exactly as before.
+const pagesBase = process.env.PAGES_BASE;
+const vlyEnabled = process.env.DISABLE_VLY_PLUGIN !== "1";
+
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), vlyPlugin(), tailwindcss()],
+  base: pagesBase || "/",
+  plugins: vlyEnabled
+    ? [react(), vlyPlugin(), tailwindcss()]
+    : [react(), tailwindcss()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -88,7 +100,7 @@ export default defineConfig({
       // vlyPlugin() injects this import at serve time, so the dep scanner
       // never sees it. Without it here the first page load discovers it,
       // re-optimizes and full-reloads the preview mid-screenshot.
-      '@vly-ai/integrations',
+      ...(vlyEnabled ? ['@vly-ai/integrations' as const] : []),
     ],
   },
   // Performance hints

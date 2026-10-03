@@ -12,6 +12,18 @@ import { useAction } from "convex/react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router";
 import "./index.css";
 
+/**
+ * Router base path.
+ * - On hosts that serve the app at the domain root (Freebuff preview, GitHub
+ *   user-site or a custom domain) this is "/" and nothing changes.
+ * - On a GitHub Pages *project* site (https://user.github.io/repo/) the app is
+ *   served under "/repo". Build with PAGES_BASE=/repo/ and Vite exposes it to
+ *   the client via `import.meta.env.BASE_URL`, which is exactly what
+ *   BrowserRouter wants — routes and assets both resolve correctly.
+ */
+const ROUTER_BASENAME =
+  import.meta.env.BASE_URL.replace(/\/$/, "") || "/";
+
 // Lazy load route components for better code splitting
 const Landing = lazy(() => import("./pages/Landing.tsx"));
 const AuthPage = lazy(() => import("./pages/Auth.tsx"));
@@ -88,7 +100,10 @@ class RootErrorBoundary extends React.Component<
   }
 }
 
-const convex = new ConvexReactClient(import.meta.env.VITE_CONVEX_URL as string);
+const convex = new ConvexReactClient(
+  (import.meta.env.VITE_CONVEX_URL as string) ||
+    "https://dynamic-alligator-520.convex.cloud",
+);
 
 /** Creates (or repairs) the site owner's admin account once per app load. */
 function AdminBootstrapper() {
@@ -134,7 +149,7 @@ createRoot(document.getElementById("root")!).render(
         <VlyToolbar />
       </ToolbarErrorBoundary>
       <ConvexAuthProvider client={convex}>
-        <BrowserRouter>
+        <BrowserRouter basename={ROUTER_BASENAME}>
           <RouteSyncer />
           <AdminBootstrapper />
           <AdPopunder />

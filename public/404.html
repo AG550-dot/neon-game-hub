@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>UltraVector</title>
+    <!--
+      GitHub Pages SPA fallback — hop 1 of 2.
+
+      On a project site (https://user.github.io/repo/) deep links like
+      /repo/games or /repo/play/slope return 404 because Pages only serves
+      real files. GitHub serves this page instead. It rewrites the URL to
+      /repo/?/games (query-string form, which DOES serve index.html),
+      then hop 2 — the script at the top of index.html — converts it back
+      into a real History API route before the SPA boots.
+    -->
+    <script>
+      (function (l) {
+        var search = l.search ? l.search.slice(1).split("&").join("~and~") : "";
+        l.replace(
+          l.protocol +
+            "//" +
+            l.hostname +
+            (l.port ? ":" + l.port : "") +
+            l.pathname.slice(0, l.pathname.lastIndexOf("/")) +
+            "/?/" +
+            l.pathname.slice(1) +
+            (search ? "&" + search : "") +
+            l.hash,
+        );
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    Redirecting…
+  </body>
+</html>

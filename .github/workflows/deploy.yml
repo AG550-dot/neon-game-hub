@@ -1,0 +1,68 @@
+name: Deploy to GitHub Pages
+
+on:
+  # Runs on every push to the default branch
+  push:
+    branches: [main, master]
+  # Lets you run this manually from the Actions tab
+  workflow_dispatch:
+
+# Grant GITHUB_TOKEN the permissions required to deploy to Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Detect Pages base path
+        id: base
+        run: |
+          # User/organization sites (user.github.io) and custom domains serve
+          # at "/", project sites serve under "/<repo>/"
+          if [[ "${{ github.event.repository.name }}" == *.github.io ]]; then
+            echo "base=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "base=/${{ github.event.repository.name }}/" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build
+        run: bun run build:pages
+        env:
+          # Tells Vite + the router the public path of the app
+          PAGES_BASE: ${{ steps.base.outputs.base }}
+          # Paste your Convex deployment URL here, or add it as a repository
+          # secret (Settings → Secrets and variables → Actions → VITE_CONVEX_URL)
+          VITE_CONVEX_URL: ${{ secrets.VITE_CONVEX_URL }}
+
+      # SPA fallback so deep links (/games, /play/slope…) resolve to index.html
+      - name: Copy SPA fallback
+        run: cp dist/index.html dist/404.html && touch dist/.nojekyll
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
