@@ -10,7 +10,8 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 import { Loader2, Lock } from "lucide-react";
 import type { ReactNode } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router";
+import { Navigate, useLocation, useNavigate, useSearchParams } from "react-router";
+import { Suspense } from "react";
 
 /**
  * Wraps a route that requires a signed-in user.
@@ -35,9 +36,28 @@ export function RequireAuth({
   /** Skip the explanation and go straight to `/auth`. */
   redirectImmediately?: boolean;
 }) {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading…</div>}>
+      <RequireAuthInner
+        children={children}
+        title={title}
+        description={description}
+        redirectImmediately={redirectImmediately}
+      />
+    </Suspense>
+  );
+}
+
+function RequireAuthInner({ children, title, description, redirectImmediately }: {
+  children: ReactNode;
+  title?: string;
+  description?: string;
+  redirectImmediately?: boolean;
+}) {
   const { isLoading, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [, setSearchParams] = useSearchParams();
 
   if (isLoading) {
     return (
@@ -50,6 +70,8 @@ export function RequireAuth({
   if (!isAuthenticated) {
     const returnTo = `${location.pathname}${location.search}`;
     const signInHref = `/auth?returnTo=${encodeURIComponent(returnTo)}`;
+    setSearchParams({});
+
 
     if (redirectImmediately) {
       return <Navigate to={signInHref} replace />;

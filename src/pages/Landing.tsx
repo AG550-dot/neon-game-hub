@@ -6,20 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES } from "@/lib/games";
 import { motion, type Variants } from "framer-motion";
-import {
-  ArrowRight,
-  ChevronDown,
-  Chrome,
-  Gamepad2,
-  Gift,
-  Lock,
-  MonitorSmartphone,
-  ShieldCheck,
-  Sparkles,
-  Star,
-  Zap,
-} from "lucide-react";
-import { useEffect } from "react";
+import { ArrowRight, ChevronDown, Chrome, Gamepad2, Gift, Lock, MonitorSmartphone, ShieldCheck, Sparkles, Star, Zap } from "lucide-react";
+import { useEffect, Suspense } from "react";
 import { Link } from "react-router";
 
 const container: Variants = {
@@ -31,7 +19,7 @@ const item: Variants = {
   show: { opacity: 1, y: 0, transition: { duration: 0.55, ease: "easeOut" } },
 };
 
-export default function Landing() {
+function LandingInner() {
   useEffect(() => {
     document.title = "UltraVector — Unblocked Games for School";
   }, []);
@@ -614,3 +602,11 @@ const FAQS = [
     a: "Absolutely. The whole arcade is built for Chromebooks — instant loading, keyboard controls, and a fullscreen mode for every game.",
   },
 ];
+
+export default function Landing() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading…</div>}>
+      <LandingInner />
+    </Suspense>
+  );
+}

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://neonplay-arcade.com/sitemap.xml
+Sitemap: https://ultravector.gg/sitemap.xml

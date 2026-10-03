@@ -28,7 +28,7 @@
   <rect x="0" y="520" width="1200" height="14" fill="url(#rb)" filter="url(#glow)"/>
   <rect x="90" y="150" width="64" height="64" rx="16" fill="#0b0520" stroke="url(#txt)" stroke-width="3"/>
   <path d="M330 158 L262 216 h32 L284 306 L356 226 h-34 Z" transform="translate(-230 -100)" fill="url(#txt)"/>
-  <text x="180" y="210" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="84" fill="url(#txt)" filter="url(#glow)">NeonPlay Arcade</text>
+  <text x="180" y="210" font-family="Arial, Helvetica, sans-serif" font-weight="800" font-size="96" fill="url(#txt)" filter="url(#glow)">UltraVector</text>
   <text x="182" y="290" font-family="Arial, Helvetica, sans-serif" font-weight="600" font-size="40" fill="#f4efff">Unblocked Games for School</text>
   <text x="182" y="360" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="28" fill="#a79bd1">Slope · Retro Bowl 25 · Run 3 · Cookie Clicker</text>
   <text x="182" y="430" font-family="Arial, Helvetica, sans-serif" font-weight="400" font-size="24" fill="#a79bd1">Free · No downloads · Instant play on Chromebooks</text>

@@ -3,16 +3,13 @@ import NeonHeader from "@/components/NeonHeader";
 import { AdBannerLeaderboard, AdBannerSmall } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { getGamesByGenre, type Genre } from "@/lib/games";
+import { getGamesByGenre } from "@/lib/games";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { Link, useParams } from "react-router";
 
-const GENRE_META: Record<
-  string,
-  { blurb: string; seo: string }
-> = {
+const GENRE_META: Record<string, { blurb: string; seo: string }> = {
   "Endless Runner": {
     blurb: "Speed that never lets up. How far can you go before it does?",
     seo: "endless runner games unblocked at school",
@@ -83,13 +80,12 @@ const GENRE_META: Record<
   },
 };
 
-export default function Genre() {
+function GenreInner() {
   const { genre: genreParam } = useParams<{ genre: string }>();
   const games = getGamesByGenre(genreParam ?? "");
   const meta = GENRE_META[genreParam ?? ""];
   const exists = games.length > 0;
-  // After the guard below, TS knows genreParam is defined via these aliases
-  const genre = exists ? (genreParam as string) : (genreParam ?? "");
+  const genre = exists ? (genreParam ?? "") : "";
 
   useEffect(() => {
     if (exists) {
@@ -194,5 +190,13 @@ export default function Genre() {
         UltraVector — free unblocked games for school. Play responsibly 😉
       </footer>
     </div>
+  );
+}
+
+export default function Genre() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading genre…</div>}>
+      <GenreInner />
+    </Suspense>
   );
 }

@@ -2,16 +2,26 @@ import { useAuth } from "@/hooks/use-auth";
 import { api } from "@/convex/_generated/api";
 import { useAction, useMutation, useQuery } from "convex/react";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { BadgeCheck, Loader2, Mail, ShieldOff, Trash2, Users } from "lucide-react";
+import { Suspense } from "react";
 
 /**
  * Site-owner control panel. Every query behind it re-checks the admin role
  * server-side; the page itself only renders for admins.
  */
 export default function Admin() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading admin…</div>}>
+      <AdminInner />
+    </Suspense>
+  );
+}
+
+function AdminInner() {
   const { user, isLoading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
   const overview = useQuery(api.adminData.overview);
   const users = useQuery(api.adminData.listUsers);
   const messages = useQuery(api.chat.listMessages);
@@ -33,9 +43,9 @@ export default function Admin() {
   // Non-admins never see the panel — bounce them home.
   useEffect(() => {
     if (!isLoading && (!user || user.role !== "admin")) {
-      navigate("/", { replace: true });
+      navigate(location.pathname, { replace: true });
     }
-  }, [isLoading, user, navigate]);
+  }, [isLoading, user, navigate, location.pathname]);
 
   if (isLoading || user === undefined) {
     return (

@@ -1,27 +1,13 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
-import AdBanner, {
-  AdBannerLeaderboard,
-  AdBannerTower,
-} from "@/components/AdBanner";
+import AdBanner, { AdBannerLeaderboard, AdBannerTower } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  GAMES,
-  getGenreStats,
-  searchGames,
-} from "@/lib/games";
+import { GAMES, getGenreStats, searchGames } from "@/lib/games";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  ChevronDown,
-  Gamepad2,
-  LayoutGrid,
-  Sparkles,
-  Zap,
-} from "lucide-react";
-import { Fragment, useEffect, useMemo, useState } from "react";
+import { ArrowRight, ChevronDown, Gamepad2, LayoutGrid, Sparkles, Zap } from "lucide-react";
+import { Suspense, Fragment, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 
 const genreStats = getGenreStats();
@@ -33,7 +19,7 @@ const GRID_AD_SLOTS = new Set(
   Array.from({ length: GRID_AD_MAX }, (_, n) => (n + 1) * GRID_AD_EVERY - 1),
 );
 
-export default function Games() {
+function GamesInner() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState(searchParams.get("q") ?? "");
   const navigate = useNavigate();
@@ -154,53 +140,53 @@ export default function Games() {
         <section className="mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6">
           <div className="flex items-start gap-6">
             <div className="min-w-0 flex-1">
-          {results.length === 0 ? (
-            <div className="neon-card mx-auto max-w-md rounded-2xl p-10 text-center">
-              <p className="font-display text-lg font-bold">No games found</p>
-              <p className="mt-2 text-sm text-muted-foreground">
-                Nothing matches “{query}”. Try “runner”, “puzzle” or “retro”.
-              </p>
-              <Button
-                variant="ghost"
-                className="btn-ghost-neon mt-4"
-                onClick={() => {
-                  setQuery("");
-                  updateUrl("");
-                }}
-              >
-                Clear search
-              </Button>
-            </div>
-          ) : (
-            <>
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                {shown.map((game, i) => (
-                  <Fragment key={game.slug}>
-                    <GameCard game={game} />
-                    {GRID_AD_SLOTS.has(i) && (
-                      <div className="col-span-full flex justify-center">
-                        <AdBannerLeaderboard className="w-full" />
-                      </div>
-                    )}
-                  </Fragment>
-                ))}
-              </div>
-              <AdBanner className="my-8" />
-              {results.length > shown.length && (
-                <div className="mt-10 text-center">
+              {results.length === 0 ? (
+                <div className="neon-card mx-auto max-w-md rounded-2xl p-10 text-center">
+                  <p className="font-display text-lg font-bold">No games found</p>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    Nothing matches “{query}”. Try “runner”, “puzzle” or “retro”.
+                  </p>
                   <Button
-                    size="lg"
                     variant="ghost"
-                    className="btn-ghost-neon h-12 px-8"
-                    onClick={() => setVisible((v) => v + 60)}
+                    className="btn-ghost-neon mt-4"
+                    onClick={() => {
+                      setQuery("");
+                      updateUrl("");
+                    }}
                   >
-                    Load more games ({results.length - shown.length} left)
-                    <ChevronDown className="ml-2 size-5" />
+                    Clear search
                   </Button>
                 </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                    {shown.map((game, i) => (
+                      <Fragment key={game.slug}>
+                        <GameCard game={game} />
+                        {GRID_AD_SLOTS.has(i) && (
+                          <div className="col-span-full flex justify-center">
+                            <AdBannerLeaderboard className="w-full" />
+                          </div>
+                        )}
+                      </Fragment>
+                    ))}
+                  </div>
+                  <AdBanner className="my-8" />
+                  {results.length > shown.length && (
+                    <div className="mt-10 text-center">
+                      <Button
+                        size="lg"
+                        variant="ghost"
+                        className="btn-ghost-neon h-12 px-8"
+                        onClick={() => setVisible((v) => v + 60)}
+                      >
+                        Load more games ({results.length - shown.length} left)
+                        <ChevronDown className="ml-2 size-5" />
+                      </Button>
+                    </div>
+                  )}
+                </>
               )}
-            </>
-          )}
             </div>
             <aside className="hidden w-[160px] shrink-0 xl:block">
               <div className="sticky top-20">
@@ -331,3 +317,11 @@ const FAQS = [
     a: "Absolutely. The whole arcade is built for Chromebooks — instant loading, keyboard controls, and a fullscreen mode for every game.",
   },
 ];
+
+export default function Games() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading games…</div>}>
+      <GamesInner />
+    </Suspense>
+  );
+}

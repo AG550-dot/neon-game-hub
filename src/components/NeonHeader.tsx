@@ -14,11 +14,20 @@ import {
   X,
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate, useSearchParams } from "react-router";
+import { Suspense } from "react";
 
 const genreStats = getGenreStats();
 
 export default function NeonHeader() {
+  return (
+    <Suspense fallback={null}>
+      <NeonHeaderInner />
+    </Suspense>
+  );
+}
+
+function NeonHeaderInner() {
   const { isAuthenticated, user, signOut } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const [genresOpen, setGenresOpen] = useState(false);
@@ -26,6 +35,7 @@ export default function NeonHeader() {
   const [focused, setFocused] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const [, setSearchParams] = useSearchParams();
   const searchRef = useRef<HTMLDivElement>(null);
 
   // Close any open menus when the route changes
@@ -64,6 +74,7 @@ export default function NeonHeader() {
     if (!trimmed) return;
     navigate(`/games?q=${encodeURIComponent(trimmed)}`);
     setQuery("");
+    setSearchParams({});
     setFocused(false);
     (document.activeElement as HTMLElement)?.blur();
   };

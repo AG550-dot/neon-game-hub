@@ -3,6 +3,7 @@ import { api } from "@/convex/_generated/api";
 import { useQuery } from "convex/react";
 import { Link } from "react-router";
 import { Crown, Medal, Trophy } from "lucide-react";
+import { Suspense } from "react";
 
 const RANK_STYLES = [
   "text-[#ffe14d]",
@@ -10,14 +11,23 @@ const RANK_STYLES = [
   "text-[#ff9d5c]",
 ];
 
-/**
- * Live top-10 leaderboard for one game, plus the signed-in player's own
- * rank. Scores come from the built-in games' automatic reporting.
- */
+/**\n * Live top-10 leaderboard for one game, plus the signed-in player's own\n * rank. Scores come from the built-in games' automatic reporting.\n */
+
 export default function GameLeaderboard({
   gameSlug,
   className = "",
 }: {
+  gameSlug: string;
+  className?: string;
+}) {
+  return (
+    <Suspense fallback={null}>
+      <GameLeaderboardInner gameSlug={gameSlug} className={className} />
+    </Suspense>
+  );
+}
+
+function GameLeaderboardInner({ gameSlug, className }: {
   gameSlug: string;
   className?: string;
 }) {

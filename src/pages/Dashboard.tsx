@@ -2,34 +2,22 @@ import GameTile from "@/components/GameTile";
 import NeonHeader from "@/components/NeonHeader";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "@/hooks/use-auth";
 import { GAMES } from "@/lib/games";
 import { motion } from "framer-motion";
-import {
-  Clock,
-  Gamepad2,
-  Heart,
-  LogOut,
-  Sparkles,
-  Trophy,
-  Zap,
-} from "lucide-react";
-import { Link, useNavigate } from "react-router";
+import { Clock, Gamepad2, Heart, LogOut, Sparkles, Trophy, Zap } from "lucide-react";
+import { Link, useNavigate, useLocation } from "react-router";
+import { Suspense } from "react";
 
-export default function Dashboard() {
+function DashboardInner() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignOut = async () => {
     await signOut();
-    navigate("/");
+    navigate(location.pathname);
   };
 
   return (
@@ -212,3 +200,11 @@ const STATUS = [
   { label: "Ads served", value: "0" },
   { label: "Vibe level", value: "MAX" },
 ];
+
+export default function Dashboard() {
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading dashboard…</div>}>
+      <DashboardInner />
+    </Suspense>
+  );
+}

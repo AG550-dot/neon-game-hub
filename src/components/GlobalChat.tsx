@@ -1,16 +1,13 @@
 import { api } from "@/convex/_generated/api";
 import { useAuth } from "@/hooks/use-auth";
 import { useAction, useMutation, useQuery } from "convex/react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, Suspense } from "react";
 import { Link } from "react-router";
 import { BadgeCheck, Loader2, Mail, MessageCircle, Send, X } from "lucide-react";
 
-/**
- * Floating global chat. Reading is open to everyone; posting requires a real
- * (non-anonymous) account with a verified email. The server profanity-filters
- * every message before it is stored.
- */
-export default function GlobalChat() {
+/**\n * Floating global chat. Reading is open to everyone; posting requires a real\n * (non-anonymous) account with a verified email. The server profanity-filters\n * every message before it is stored.\n */
+
+function GlobalChatInner() {
   const { user, isAuthenticated, isLoading } = useAuth();
 
   const [panelOpen, setPanelOpen] = useState(false);
@@ -253,5 +250,13 @@ export default function GlobalChat() {
         </div>
       )}
     </>
+  );
+}
+
+export default function GlobalChat() {
+  return (
+    <Suspense fallback={null}>
+      <GlobalChatInner />
+    </Suspense>
   );
 }

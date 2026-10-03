@@ -1,27 +1,11 @@
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 
 import { useAuth } from "@/hooks/use-auth";
-import {
-  ArrowRight,
-  ArrowLeft,
-  Gamepad2,
-  Loader2,
-  Mail,
-  Sparkles,
-  UserX,
-  Zap,
-} from "lucide-react";
-import { Suspense, useEffect, useState } from "react";
+import { ArrowRight, ArrowLeft, Gamepad2, Loader2, Mail, Sparkles, UserX, Zap } from "lucide-react";
+import { useEffect, useState, Suspense } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 
 interface AuthProps {
@@ -38,7 +22,7 @@ function resolveRedirectAfterAuth(
   return fallback;
 }
 
-function Auth({ redirectAfterAuth }: AuthProps = {}) {
+function AuthInner({ redirectAfterAuth }: { redirectAfterAuth?: string }) {
   const { isLoading: authLoading, isAuthenticated, signIn } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -399,8 +383,8 @@ function Auth({ redirectAfterAuth }: AuthProps = {}) {
 
 export default function AuthPage(props: AuthProps) {
   return (
-    <Suspense>
-      <Auth {...props} />
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-muted-foreground">Loading…</div>}>
+      <AuthInner {...props} />
     </Suspense>
   );
 }
