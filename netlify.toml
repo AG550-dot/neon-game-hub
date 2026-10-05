@@ -1,0 +1,21 @@
+# Netlify configuration — auto-read when the repo is connected.
+# (Cloudflare Pages ignores this file and uses the dashboard settings
+# described in DEPLOY.md; both read public/_redirects for SPA routing.)
+
+[build]
+  command = "bun run build"
+  publish = "dist"
+
+# SPA fallback: serve the app for any path that isn't a real file.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Set these in the Netlify dashboard (Site settings → Environment variables):
+#   VITE_CONVEX_URL = https://dynamic-alligator-520.convex.cloud
+#   SITE_URL        = https://your-site.netlify.app  (or your custom domain)
+#
+# Note: Netlify builds from your repo, so the site URL depends on the netlify
+# subdomain you pick — set SITE_URL after the first deploy so the generated
+# sitemap/robots use the right domain, then redeploy.
