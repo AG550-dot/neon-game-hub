@@ -1,7 +1,6 @@
 import GameTile from "@/components/GameTile";
 import GameLogo from "@/components/GameLogo";
 import NeonHeader from "@/components/NeonHeader";
-import { AdBannerLeaderboard } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES } from "@/lib/games";
@@ -113,9 +112,6 @@ function LandingInner() {
                 </span>
               </motion.div>
             </motion.div>
-
-            {/* Leaderboard — prime above-the-fold slot under the hero CTAs */}
-            <AdBannerLeaderboard className="mt-10" />
 
             {/* Floating game tiles preview */}
             <motion.div

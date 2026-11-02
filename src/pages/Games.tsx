@@ -1,23 +1,15 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
-import AdBanner, { AdBannerLeaderboard, AdBannerTower } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { GAMES, getGenreStats, searchGames } from "@/lib/games";
 import { motion } from "framer-motion";
 import { ArrowRight, ChevronDown, Gamepad2, LayoutGrid, Sparkles, Zap } from "lucide-react";
-import { Suspense, Fragment, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
 
 const genreStats = getGenreStats();
-
-// In-grid leaderboard cadence: one ad row every 16 games, capped at 3 per page
-const GRID_AD_EVERY = 16;
-const GRID_AD_MAX = 3;
-const GRID_AD_SLOTS = new Set(
-  Array.from({ length: GRID_AD_MAX }, (_, n) => (n + 1) * GRID_AD_EVERY - 1),
-);
 
 function GamesInner() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -133,10 +125,7 @@ function GamesInner() {
           </div>
         </section>
 
-        {/* Leaderboard — below search, above results */}
-        <AdBannerLeaderboard className="mx-auto max-w-7xl px-4 sm:px-6" />
-
-        {/* Game grid + side rail */}
+        {/* Game grid */}
         <section className="mx-auto w-full max-w-7xl px-4 pb-10 sm:px-6">
           <div className="flex items-start gap-6">
             <div className="min-w-0 flex-1">
@@ -160,18 +149,10 @@ function GamesInner() {
               ) : (
                 <>
                   <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-                    {shown.map((game, i) => (
-                      <Fragment key={game.slug}>
-                        <GameCard game={game} />
-                        {GRID_AD_SLOTS.has(i) && (
-                          <div className="col-span-full flex justify-center">
-                            <AdBannerLeaderboard className="w-full" />
-                          </div>
-                        )}
-                      </Fragment>
+                    {shown.map((game) => (
+                      <GameCard key={game.slug} game={game} />
                     ))}
                   </div>
-                  <AdBanner className="my-8" />
                   {results.length > shown.length && (
                     <div className="mt-10 text-center">
                       <Button
@@ -188,11 +169,6 @@ function GamesInner() {
                 </>
               )}
             </div>
-            <aside className="hidden w-[160px] shrink-0 xl:block">
-              <div className="sticky top-20">
-                <AdBannerTower />
-              </div>
-            </aside>
           </div>
         </section>
 

@@ -1,13 +1,12 @@
 import GameTile from "@/components/GameTile";
 import NeonHeader from "@/components/NeonHeader";
-import AdBanner, { AdBannerLeaderboard, AdBannerSmall, AdBannerTower } from "@/components/AdBanner";
 import GameLeaderboard from "@/components/GameLeaderboard";
 import { useReportScore } from "@/hooks/use-report-score";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { GAMES, getGame } from "@/lib/games";
 import { getNativeGame } from "@/games/registry";
-import { ArrowLeft, ChevronRight, ExternalLink, Globe, Keyboard, Maximize2, Monitor, Zap } from "lucide-react";
+import { ArrowLeft, ChevronRight, Globe, Keyboard, Maximize2, Monitor, Zap } from "lucide-react";
 import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 
@@ -145,20 +144,8 @@ function PlayInner() {
                 <Maximize2 className="size-4 text-[#00e5ff]" />
                 Fullscreen
               </Button>
-              <a
-                href={game.fallbackUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-ghost-neon inline-flex h-10 items-center gap-2 rounded-md px-4 text-sm font-medium"
-              >
-                <ExternalLink className="size-4 text-[#3dff8b]" />
-                Open in new tab
-              </a>
             </div>
           </div>
-
-          {/* Leaderboard — directly above the game, the site's prime slot */}
-          <AdBannerLeaderboard className="mb-4" />
 
           {/* Game stage */}
           <div ref={shellRef} className="rainbow-ring relative rounded-2xl">
@@ -246,9 +233,6 @@ function PlayInner() {
             </span>
           </div>
 
-          {/* Ad banner — right under the game (highest-visibility slot) */}
-          <AdBanner className="mt-4" />
-
           {/* Info strip */}
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             <div className="neon-card flex items-start gap-3 rounded-xl p-4">
@@ -308,9 +292,6 @@ function PlayInner() {
           {/* Per-game leaderboard */}
           <GameLeaderboard gameSlug={game.slug} className="mt-6" />
 
-          {/* Ad banner #2 — 320×50, isolated iframe */}
-          <AdBannerSmall className="mt-6" />
-
           {/* Related games */}
           <section className="mt-10">
             <div className="mb-4 flex items-center gap-3">
@@ -331,13 +312,6 @@ function PlayInner() {
             </div>
           </section>
         </div>
-
-        {/* Tower — sticky sidebar (desktop only) */}
-        <aside className="hidden w-[160px] shrink-0 xl:block">
-          <div className="sticky top-20">
-            <AdBannerTower />
-          </div>
-        </aside>
       </main>
 
       <footer className="border-t border-[#b026ff26] py-6 text-center text-xs text-muted-foreground">

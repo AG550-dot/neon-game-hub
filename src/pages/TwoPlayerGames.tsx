@@ -1,6 +1,5 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
-import { AdBannerLeaderboard, AdBannerSmall } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getTwoPlayerGames, GAMES } from "@/lib/games";
@@ -65,8 +64,6 @@ function TwoPlayerInner() {
           </div>
         </section>
 
-        <AdBannerLeaderboard className="mx-auto max-w-7xl px-4 sm:px-6" />
-
         {/* Grid */}
         <section className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -75,8 +72,6 @@ function TwoPlayerInner() {
             ))}
           </div>
         </section>
-
-        <AdBannerSmall className="mb-10" />
 
         {/* SEO copy */}
         <section className="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">

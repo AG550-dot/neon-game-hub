@@ -4,9 +4,12 @@ import { useAuth } from "@/hooks/use-auth";
 import { GAMES, getGenreStats, searchGames } from "@/lib/games";
 import {
   ChevronDown,
+  Crown,
   Gamepad2,
   LayoutGrid,
+  Lock,
   LogOut,
+  Mail,
   Menu,
   Search,
   Shield,
@@ -191,6 +194,18 @@ function NeonHeaderInner() {
               ))}
               <div className="mt-1 border-t border-[#b026ff26] pt-2">
                 <Link
+                  to="/legends"
+                  className="block rounded-lg px-3 py-2 text-sm font-bold text-[#ffe14d] transition-colors hover:bg-[#ffe14d14]"
+                >
+                  👑 The Legends →
+                </Link>
+                <Link
+                  to="/legend"
+                  className="block rounded-lg px-3 py-2 text-sm font-bold text-[#c04bff] transition-colors hover:bg-[#c04bff14]"
+                >
+                  Become a Legend →
+                </Link>
+                <Link
                   to="/two-player-games"
                   className="block rounded-lg px-3 py-2 text-sm font-bold text-[#ff2ea6] transition-colors hover:bg-[#ff2ea614]"
                 >
@@ -209,6 +224,30 @@ function NeonHeaderInner() {
 
         {/* Right actions */}
         <div className="ml-auto flex shrink-0 items-center gap-2">
+          {isAuthenticated && (
+            <>
+              <Button
+                asChild
+                variant="ghost"
+                size="icon"
+                aria-label="Messages"
+                className="btn-ghost-neon hidden sm:inline-flex"
+              >
+                <Link to="/dm">
+                  <Mail className="size-4 text-[#00e5ff]" />
+                </Link>
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="Lock screen"
+                className="btn-ghost-neon hidden sm:inline-flex"
+                onClick={() => window.dispatchEvent(new Event("uv-lock-screen"))}
+              >
+                <Lock className="size-4 text-[#ffe14d]" />
+              </Button>
+            </>
+          )}
           {isAuthenticated && user?.role === "admin" && (
             <Button
               asChild
@@ -308,6 +347,26 @@ function NeonHeaderInner() {
             Collections
           </p>
           <div className="flex flex-wrap gap-2">
+            <Link
+              to="/legends"
+              className="rounded-full border border-[#ffe14d4d] px-3 py-1.5 text-xs font-bold text-[#ffe14d] transition-colors hover:border-[#ffe14d80] hover:text-foreground"
+            >
+              👑 Legends
+            </Link>
+            <Link
+              to="/legend"
+              className="rounded-full border border-[#c04bff4d] px-3 py-1.5 text-xs font-bold text-[#c04bff] transition-colors hover:border-[#c04bff80] hover:text-foreground"
+            >
+              Become a Legend
+            </Link>
+            {isAuthenticated && (
+              <Link
+                to="/dm"
+                className="rounded-full border border-[#00e5ff4d] px-3 py-1.5 text-xs font-bold text-[#9bf3ff] transition-colors hover:border-[#00e5ff80] hover:text-foreground"
+              >
+                Messages
+              </Link>
+            )}
             <Link
               to="/two-player-games"
               className="rounded-full border border-[#00e5ff4d] px-3 py-1.5 text-xs font-bold text-[#9bf3ff] transition-colors hover:border-[#00e5ff80] hover:text-foreground"

@@ -33,6 +33,18 @@ const schema = defineSchema(
 
       // public handle chosen at sign-up (unique, shown in chat + leaderboards)
       username: v.optional(v.string()),
+
+      /** SHA-256 hash of the user's screen-lock PIN (never the PIN itself). */
+      pinHash: v.optional(v.string()),
+      /** Set by the lock action; cleared when the correct PIN is entered. */
+      screenLocked: v.optional(v.boolean()),
+      /** Legend subscription (£10 bank transfer, admin-approved). */
+      subscription: v.optional(
+        v.object({
+          tier: v.union(v.literal("legend")),
+          since: v.number(),
+        }),
+      ),
     })
       .index("email", ["email"]) // index for the email. do not remove or modify
       .index("by_username", ["username"]),
@@ -69,6 +81,37 @@ const schema = defineSchema(
     //   ...
     //   // table fields
     // }).index("by_field", ["field"])
+
+    /** Private 1:1 direct messages (DM page). pairKey = sorted "idA|idB". */
+    dmMessages: defineTable({
+      pairKey: v.string(),
+      senderId: v.id("users"),
+      recipientId: v.id("users"),
+      text: v.string(),
+      createdAt: v.number(),
+    })
+      .index("by_pair_created", ["pairKey", "createdAt"])
+      .index("by_recipient_created", ["recipientId", "createdAt"]),
+
+    /** £10 legend-subscription proof-of-payment submissions (screenshot). */
+    subscriptionRequests: defineTable({
+      userId: v.id("users"),
+      username: v.string(),
+      storageId: v.id("_storage"),
+      note: v.optional(v.string()),
+      status: v.union(
+        v.literal("pending"),
+        v.literal("ai_passed"),
+        v.literal("ai_flagged"),
+        v.literal("approved"),
+        v.literal("rejected"),
+      ),
+      aiVerdict: v.optional(v.string()),
+      aiPassed: v.optional(v.boolean()),
+      createdAt: v.number(),
+    })
+      .index("by_user_created", ["userId", "createdAt"])
+      .index("by_status_created", ["status", "createdAt"]),
   },
   {
     schemaValidation: false,

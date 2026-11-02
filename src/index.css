@@ -370,3 +370,33 @@
 .animate-neon-pulse {
   animation: neon-pulse 3.2s ease-in-out infinite;
 }
+
+/* Demon aura — the site admin's badge (animated crimson/violet glow) */
+.demon-aura {
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 46, 99, 0.28), transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(176, 38, 255, 0.25), transparent 60%);
+  animation: demon-pulse 3s ease-in-out infinite;
+}
+
+@keyframes demon-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.85; }
+}
+
+/* Legend shimmer — gold pulse used by the subscription surfaces */
+.legend-shimmer {
+  background: linear-gradient(
+    110deg,
+    rgba(255, 225, 77, 0.12) 30%,
+    rgba(255, 157, 92, 0.18) 50%,
+    rgba(255, 225, 77, 0.12) 70%
+  );
+  background-size: 200% 100%;
+  animation: legend-shimmer 3.5s ease-in-out infinite;
+}
+
+@keyframes legend-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}

@@ -15,7 +15,25 @@ export const listMessages = query({
       .withIndex("by_created")
       .order("desc")
       .take(80);
-    return rows.reverse();
+
+    // Resolve each author's chat tier once so the client can render the
+    // banners: "legend" (gold, subscribed) or "demon" (admin aura).
+    const tiers = new Map<string, "legend" | "demon" | undefined>();
+    const out = [];
+    for (const row of rows.reverse()) {
+      let tier: "legend" | "demon" | undefined = tiers.get(row.userId);
+      if (tier === undefined) {
+        const author = await ctx.db.get(row.userId);
+        tier = author?.role === "admin"
+          ? "demon"
+          : author?.subscription?.tier === "legend"
+            ? "legend"
+            : undefined;
+        tiers.set(row.userId, tier);
+      }
+      out.push({ ...row, tier });
+    }
+    return out;
   },
 });
 

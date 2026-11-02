@@ -1,6 +1,5 @@
 import GameCard from "@/components/GameCard";
 import NeonHeader from "@/components/NeonHeader";
-import { AdBannerLeaderboard, AdBannerSmall } from "@/components/AdBanner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { getGamesByGenre } from "@/lib/games";
@@ -187,9 +186,6 @@ function GenreInner() {
           </div>
         </section>
 
-        {/* Leaderboard — prime slot under the genre hero */}
-        <AdBannerLeaderboard className="mx-auto max-w-7xl px-4 sm:px-6" />
-
         {/* Games */}
         <section className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -199,8 +195,13 @@ function GenreInner() {
           </div>
         </section>
 
-        {/* Ad banner #2 — 320×50, isolated iframe */}
-        <AdBannerSmall className="mb-10" />
+        <section className="mx-auto w-full max-w-7xl px-4 py-10 sm:px-6">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {games.map((game) => (
+              <GameCard key={game.slug} game={game} />
+            ))}
+          </div>
+        </section>
 
         {/* SEO copy */}
         <section className="mx-auto w-full max-w-4xl px-4 pb-16 sm:px-6">

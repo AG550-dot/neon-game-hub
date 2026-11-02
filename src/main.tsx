@@ -1,7 +1,7 @@
 import { Toaster } from "@/components/ui/sonner";
 import { RequireAuth } from "@/components/RequireAuth";
-import { AdPopunder } from "@/components/AdBanner";
 import GlobalChat from "@/components/GlobalChat";
+import ScreenLock from "@/components/ScreenLock";
 import { api } from "@/convex/_generated/api";
 import { VlyToolbar } from "../vly-toolbar-readonly.tsx";
 import { ConvexAuthProvider } from "@convex-dev/auth/react";
@@ -33,6 +33,9 @@ const Games = lazy(() => import("./pages/Games.tsx"));
 const Play = lazy(() => import("./pages/Play.tsx"));
 const Genre = lazy(() => import("./pages/Genre.tsx"));
 const TwoPlayerGames = lazy(() => import("./pages/TwoPlayerGames.tsx"));
+const Legends = lazy(() => import("./pages/Legends.tsx"));
+const Legend = lazy(() => import("./pages/Legend.tsx"));
+const Dms = lazy(() => import("./pages/Dms.tsx"));
 const Admin = lazy(() => import("./pages/Admin.tsx"));
 
 // Simple loading fallback for route transitions
@@ -152,7 +155,6 @@ createRoot(document.getElementById("root")!).render(
         <BrowserRouter basename={ROUTER_BASENAME}>
           <RouteSyncer />
           <AdminBootstrapper />
-          <AdPopunder />
           <Suspense fallback={<RouteLoading />}>
             <Routes>
               <Route path="/" element={<Landing />} />
@@ -171,6 +173,16 @@ createRoot(document.getElementById("root")!).render(
               <Route path="/games" element={<Games />} />
               <Route path="/genre/:genre" element={<Genre />} />
               <Route path="/two-player-games" element={<TwoPlayerGames />} />
+              <Route path="/legends" element={<Legends />} />
+              <Route path="/legend" element={<Legend />} />
+              <Route
+                path="/dm"
+                element={
+                  <RequireAuth>
+                    <Dms />
+                  </RequireAuth>
+                }
+              />
               <Route path="/play/:slug" element={<Play />} />
               <Route
                 path="/admin"
@@ -184,6 +196,7 @@ createRoot(document.getElementById("root")!).render(
             </Routes>
           </Suspense>
           <GlobalChat />
+          <ScreenLock />
           <Toaster />
         </BrowserRouter>
       </ConvexAuthProvider>

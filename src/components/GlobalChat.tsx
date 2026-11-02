@@ -3,7 +3,7 @@ import { useAuth } from "@/hooks/use-auth";
 import { useAction, useMutation, useQuery } from "convex/react";
 import { useEffect, useRef, useState, Suspense } from "react";
 import { Link } from "react-router";
-import { BadgeCheck, Loader2, Mail, MessageCircle, Send, X } from "lucide-react";
+import { BadgeCheck, Crown, Flame, Loader2, Mail, MessageCircle, Send, Swords, X } from "lucide-react";
 
 /**\n * Floating global chat. Reading is open to everyone; posting requires a real\n * (non-anonymous) account with a verified email. The server profanity-filters\n * every message before it is stored.\n */
 
@@ -111,11 +111,17 @@ function GlobalChatInner() {
       {/* Panel */}
       {panelOpen && (
         <div className="neon-card fixed bottom-20 right-4 z-50 flex h-[480px] w-[min(92vw,380px)] flex-col overflow-hidden rounded-2xl border border-[#b026ff44] bg-[#0b0520]/97 shadow-[0_18px_60px_rgba(0,0,0,0.6)] backdrop-blur-xl sm:right-5">
-          {/* Header */}
-          <div className="flex items-center gap-2.5 border-b border-[#b026ff33] px-4 py-3">
+            <div className="flex items-center gap-2.5 border-b border-[#b026ff33] px-4 py-3">
             <MessageCircle className="size-4 text-[#00e5ff]" />
             <p className="font-display text-sm font-bold">Global Chat</p>
-            <span className="ml-auto flex items-center gap-1 text-[10px] text-muted-foreground">
+            <Link
+              to="/dm"
+              className="ml-auto flex items-center gap-1 rounded-full border border-[#00e5ff4d] px-2 py-0.5 text-[10px] font-bold text-[#9bf3ff] transition-colors hover:border-[#00e5ff88]"
+            >
+              <Swords className="size-3" />
+              DMs
+            </Link>
+            <span className="flex items-center gap-1 text-[10px] text-muted-foreground">
               <span className="size-1.5 rounded-full bg-[#3dff8b]" />
               live
             </span>
@@ -134,9 +140,25 @@ function GlobalChatInner() {
             ) : (
               messages.map((m) => (
                 <div key={m._id} className="text-sm leading-snug">
-                  <span className="mr-2 font-bold text-[#00e5ff]">
-                    {m.username}
-                  </span>
+                  {m.tier === "demon" ? (
+                    <span className="mr-2 inline-flex items-center gap-1 rounded-full border border-[#ff2e6388] bg-[#ff2e631a] px-2 py-0.5 font-display text-xs font-black text-[#ff5d84] shadow-[0_0_10px_rgba(255,46,99,0.5)]">
+                      <Flame className="size-3 animate-pulse" />
+                      <span className="animate-pulse bg-gradient-to-r from-[#ff2e63] via-[#ff9d5c] to-[#b026ff] bg-clip-text text-transparent">
+                        {m.username} 👹
+                      </span>
+                    </span>
+                  ) : m.tier === "legend" ? (
+                    <span className="mr-2 inline-flex items-center gap-1 rounded-full border border-[#ffe14d88] bg-[#ffe14d14] px-2 py-0.5 font-display text-xs font-black text-[#ffe14d]">
+                      <Crown className="size-3" />
+                      <span className="bg-gradient-to-r from-[#ffe14d] to-[#ff9d5c] bg-clip-text text-transparent">
+                        {m.username}
+                      </span>
+                    </span>
+                  ) : (
+                    <span className="mr-2 font-bold text-[#00e5ff]">
+                      {m.username}
+                    </span>
+                  )}
                   <span className="text-[10px] text-muted-foreground/60">
                     {new Date(m.createdAt).toLocaleTimeString([], {
                       hour: "2-digit",
